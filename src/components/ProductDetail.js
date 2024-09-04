@@ -1,42 +1,47 @@
-import { getDetailProducts,} from '../data/Tmdb';
 import React, { useEffect, useState} from 'react';
+import { useParams } from 'react-router-dom'; // Pour récupérer les paramètres d'URL
+import { getProductById } from '../data/api'; // Importer la fonction getProductById
 
-export const ProductDetail = ({id}) => {
+export const ProductDetail = () => {
+    const { id } = useParams(); // Récupérer l'ID du produit depuis les paramètres d'URL
+    const [product, setProduct] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    const [product, setProducts] = useState(null);
     useEffect(() => {
         const fetchProduct = async () => {
-            const fetchedProduct = await getDetailProducts(id);
-            console.log(fetchedProduct);
-            setProducts(fetchedProduct);
+          try {
+            const productData = await getProductById(id);
+            setProduct(productData);
+          } catch (error) {
+            console.error('Erreur lors de la récupération du produit:', error);
+          } finally {
+            setLoading(false);
+          }
         };
-        if (id){
-            fetchProduct();
-        }
-    }, [id]);
 
-    const imgStyle = {
-        width: '500px',
-        height:'750px'
-    }
+        fetchProduct();
+      }, [id]);
 
+      if (loading) {
+        return <p>Chargement du produit...</p>;
+      }
+
+      if (!product) {
+        return <p>Produit non trouvé</p>;
+      }
 
     return (
-        <main className='m-5'>
-            {product &&
-                <section className='container'>
-                        <div className='row mt-5'>
-                            <div className='col'>
-                            <img src={`${product.poster}`} alt={product.title} className={imgStyle} />
-                            </div>
-                            <div className='col text-start'>
-                                <h1>{product.title}</h1>
-                                <p className=''>{product.rating}</p>
-                                <p className='fw-bold'>Date de sortie : {product.overview}</p>
-                            </div>
-                        </div>
-                </section>
-            }
-        </main>
-    );
+        <div>
+          <h1>{product.title}</h1>
+          <p> {product.overview} </p>
+          <p> {product.price} </p>
+          <p> {product.long_description}</p>
+          <img src={product.poster}></img>
+          <p>{product.rating}</p>
+          <p>{product.in_stock}</p>
+          <p>{product.size}</p>
+          <p>{product.best_seller}</p>
+          {/* Vous pouvez ajouter d'autres détails ici */}
+        </div>
+      );
 }

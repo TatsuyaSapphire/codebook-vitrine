@@ -1,6 +1,6 @@
 import React,{ useState, useEffect }from 'react';
 import {NavLink} from 'react-router-dom';
-import logo from '../assets/popcorn.png'
+import logo from '../assets/logo.png'
 import '../index.css';
 import './Header.css';
 
@@ -28,20 +28,6 @@ export const Header = () => {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <NavLink to='/' className='nav-link'>Home</NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to='/popularmovie' className='nav-link'>Popular</NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to='/topratedmovie' className='nav-link'>Top</NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to='/upcomingmovie' className='nav-link'>A venir</NavLink>
-              </li>
-            </ul>
             <div className='themeSelector'>
                 <span onClick={() => setTheme('light')} className={ theme === 'light' ? 'light activeTheme' : 'light'}></span>
                 <span onClick={() => setTheme('dark')} className={ theme === 'dark' ? 'dark activeTheme' : 'dark' }></span>
