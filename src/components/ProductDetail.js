@@ -36,7 +36,7 @@ export const ProductDetail = () => {
           <p> {product.overview} </p>
           <p> {product.price} </p>
           <p> {product.long_description}</p>
-          <img src={product.poster}></img>
+          <img src={product.poster} alt='product-img'></img>
           <p>{product.rating}</p>
           <p>{product.in_stock}</p>
           <p>{product.size}</p>

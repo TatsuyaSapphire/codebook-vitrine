@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { getAllProducts } from '../data/api';
 import Star from '../assets/etoile.png'
 
-export const AllProducts= () => {
+export const ProductHome = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -37,11 +39,10 @@ export const AllProducts= () => {
   return (
     <div>
       <h4 className='link-underline-primarys'>Featured eBooks</h4>
-      <ul>
         <div className='container mt-5'>
             <div className='row'>
-                {products.map((product) => (
-                    <div className='col-4 mt-5'>
+                {products.slice(0, 3).map((product) => (
+                    <div className='col'>
                         <div className='card'>
                         <img src={product.poster} className='card-img-top' alt='product-img'></img>
                             <div className='card-body' key={product.id}>
@@ -60,7 +61,6 @@ export const AllProducts= () => {
                 ))}
             </div>
         </div>
-      </ul>
     </div>
   );
 };
