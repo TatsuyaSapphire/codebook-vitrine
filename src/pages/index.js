@@ -1,0 +1,6 @@
+export {Home} from './Home'
+export {DetailMovie} from './DetailMovie'
+export {MoviePopular} from './MoviesPopular'
+export {MovieTopRated} from './MovieTopRated'
+export {MovieUpComing} from './MovieUpComing'
+export {ResultsPage} from './Result.js'

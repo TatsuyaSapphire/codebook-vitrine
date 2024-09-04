@@ -1,0 +1,133 @@
+:root {
+  --primary-color: #fff;
+  --background-color: #334364b;
+}
+
+
+
+.light {
+  --primary-color: #000;
+  --background-color: #fff;
+}
+
+.dark {
+  --primary-color: #fff;
+  --background-color: #34364b;
+}
+
+html.light,
+html.dark {
+  color: var(--primary-color);
+  background-color: var(--background-color);
+}
+
+header {
+  margin-bottom: 1rem;
+  background-color: #34364b;
+}
+
+
+
+
+.navbar {
+  padding: 1rem 2rem;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-link {
+  font-size: 1.1rem;
+  margin-right: 1rem;
+}
+
+.nav-link:hover {
+  color: #ddd;
+}
+
+
+.navbar-collapse {
+  display: flex;
+  justify-content: center;
+
+}
+
+
+.nav-item {
+  margin: 0 15px;
+}
+
+.theme-selector {
+  display: flex;
+  align-items: center;
+  margin-right: 2.5rem;
+
+  
+}
+
+.theme-selector span {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  
+}
+
+.theme-selector .light {
+  background-color: #fff;
+  border: 1px solid #000;
+}
+
+.theme-selector .dark {
+  background-color: #343a40;
+  border: 1px solid #fff;
+}
+
+.theme-selector .activeTheme {
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.3);
+}
+
+  .themeSelector {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  /* margin-left: 1rem; */
+}
+
+.search-bar input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+ 
+}
+
+.search-bar button {
+  padding: 0.5rem 1rem;
+  border: none;
+  
+  cursor: pointer;
+  border-radius: 4px;
+  
+}
+
+@media (max-width: 768px) {
+  .navbar-brand {
+    font-size: 1.3rem;
+  }
+
+  .nav-link {
+    font-size: 1rem;
+  }
+}
+.search-bar {
+  margin-left: 0;
+  margin-top: 0.5rem;
+}

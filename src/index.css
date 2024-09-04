@@ -1,0 +1,64 @@
+:root {
+  --background-light: #ffffff;
+  --background-dark: #34364b;
+  --text-light: #000000;
+  --text-dark: #ffffff;
+}
+
+body {
+  background-color: transparent;
+  color: inherit;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body::-webkit-scrollbar{
+  width: 12px;
+}
+
+body::-webkit-scrollbar-track {
+  background: rgb(29, 34, 68); /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(86,84,128,1) 0%, rgba(45,44,106,1) 50%, rgba(59,58,99,1) 100%);
+  border-radius:10px;
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  -ms-border-radius:10px;
+  -o-border-radius:10px;
+}
+
+.light{
+  background-color: var(--background-light);
+  color: var(--text-dark);
+  transition: all 500ms;
+}
+.dark{
+  background-color: #1e67af;
+  background-color: var(--background-dark);
+  color: var(--text-light);
+  transition: all 500ms;
+}
+
+
+.zoom-card {
+  transition: transform 0.3s ease-in-out;
+}
+
+.zoom-card:hover {
+  transform: scale(1.02);
+  -webkit-transform: scale(1.02);
+  -moz-transform: scale(1.02);
+  -ms-transform: scale(1.02);
+  -o-transform: scale(1.02);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
