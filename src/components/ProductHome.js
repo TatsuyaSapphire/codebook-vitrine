@@ -11,8 +11,8 @@ export const ProductHome = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const productsData = await getFeaturedProducts();
-        setProducts(productsData);
+        const productsFeaturedData = await getFeaturedProducts();
+        setProducts(productsFeaturedData);
       } catch (error) {
         console.error('Erreur lors de la récupération des produits:', error);
       } finally {

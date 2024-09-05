@@ -1,6 +1,5 @@
 import React from 'react';
 import { ProductHome } from '../components/ProductHome';
-import {AllProducts} from '../components/ProductAll'
 import { useNavigate } from 'react-router-dom';
 
 

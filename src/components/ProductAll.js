@@ -37,30 +37,28 @@ export const AllProducts= () => {
   return (
     <div>
       <h4 className='link-underline-primarys'>Featured eBooks</h4>
-      <ul>
         <div className='container mt-5'>
-            <div className='row'>
-                {products.map((product) => (
-                    <div className='col-4 mt-5'>
-                        <div className='card'>
-                        <img src={product.poster} className='card-img-top' alt='product-img'></img>
-                            <div className='card-body' key={product.id}>
-                                <h5 className='card-title fw-bold fs-4 text-start'>{product.name}</h5>
-                                <p className='card-text text-start'>{product.overview}</p>
-                                <div style={{ display: 'flex', color: '#FFD700' }}>
-                                    {renderStars(product.rating)}
-                                </div>
-                                <div className='d-flex justify-content-between mt-4'>
-                                    <p className='card-text text-start fw-bold fs-4'>${product.price}</p>
-                                    <button class="py-2 px-3 text-white btn btn-primary btn-sm rounded-lg">Add To Cart <i>+</i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+          <div className='row'>
+              {products.map((product) => (
+                  <div className='col-4 mt-5'>
+                      <div className='card'>
+                      <img src={product.poster} className='card-img-top' alt='product-img'></img>
+                          <div className='card-body' key={product.id}>
+                              <h5 className='card-title fw-bold fs-4 text-start'>{product.name}</h5>
+                              <p className='card-text text-start'>{product.overview}</p>
+                              <div style={{ display: 'flex', color: '#FFD700' }}>
+                                  {renderStars(product.rating)}
+                              </div>
+                              <div className='d-flex justify-content-between mt-4'>
+                                  <p className='card-text text-start fw-bold fs-4'>${product.price}</p>
+                                  <button class="py-2 px-3 text-white btn btn-primary btn-sm rounded-lg">Add To Cart <i>+</i></button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
                 ))}
             </div>
         </div>
-      </ul>
     </div>
   );
 };
