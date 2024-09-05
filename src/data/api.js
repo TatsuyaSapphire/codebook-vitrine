@@ -17,6 +17,21 @@ export const getAllProducts = async () => {
   }
 };
 
+export const getFeaturedProducts = async () => {
+  try {
+    const productsCollection = collection(db, 'featured_products');
+    const snapshot = await getDocs(productsCollection);
+    const featured_products = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+    return featured_products;
+  } catch (error) {
+    console.error('Erreur de récupération des produits:', error);
+    return [];
+  }
+};
+
 // Fonction pour récupérer un produit par son ID
 export const getProductById = async (id) => {
   try {

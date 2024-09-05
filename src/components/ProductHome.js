@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAllProducts } from '../data/api';
+import { getFeaturedProducts } from '../data/api';
 import Star from '../assets/etoile.png'
 
 export const ProductHome = () => {
@@ -11,7 +11,7 @@ export const ProductHome = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const productsData = await getAllProducts();
+        const productsData = await getFeaturedProducts();
         setProducts(productsData);
       } catch (error) {
         console.error('Erreur lors de la récupération des produits:', error);
