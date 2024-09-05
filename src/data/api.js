@@ -1,4 +1,4 @@
-import { collection, getDocs, doc, getDoc, updateDoc , arrayUnion } from 'firebase/firestore';
+import { collection, getDocs, doc, getDoc, addDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase/server'; // Assurez-vous que le chemin est correct
 
 // Fonction pour récupérer tous les produits
@@ -51,18 +51,33 @@ export const getProductById = async (id) => {
 export const addToCart = async (product) => {
   const user = auth.currentUser;
 
+  // Vérifie si l'utilisateur est connecté
   if (!user) {
-    alert('Veuillez vous connecter pour ajouter des produits au panier.');
+    alert("Vous devez être connecté pour ajouter des produits au panier.");
     return;
   }
 
   try {
-    const userRef = doc(db, 'users', user.uid);
-    await updateDoc(userRef, {
-      cart: arrayUnion(product), // Ajoute le produit au tableau 'cart'
-    });
-    alert('Produit ajouté au panier !');
+    // Référence au panier de l'utilisateur dans Firestore
+    const cartRef = collection(db, 'users', user.uid, 'cart');
+    await addDoc(cartRef, product);
+    alert("Produit ajouté au panier !");
   } catch (error) {
-    console.error("Erreur lors de l'ajout au panier :", error);
+    console.error("Erreur lors de l'ajout au panier : ", error);
+  }
+};
+
+// Fonction pour récupérer les produits du panier
+export const getCartItems = async () => {
+  const user = auth.currentUser;
+  if (!user) return [];
+
+  try {
+    const cartRef = collection(db, 'users', user.uid, 'cart');
+    const cartSnapshot = await getDocs(cartRef);
+    return cartSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    console.error("Erreur lors de la récupération du panier : ", error);
+    return [];
   }
 };

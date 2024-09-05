@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { getAllProducts } from '../data/api';
+import { getAllProducts, addToCart } from '../data/api';
 import { Link } from 'react-router-dom';
 import Star from '../assets/etoile.png'
 import '../App.css';
 
+
+
 export const AllProducts= () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+
+    const handleAddToCart = () => {
+      addToCart(products);
+    };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -55,7 +61,7 @@ export const AllProducts= () => {
                               </div>
                               <div className='d-flex justify-content-between mt-4'>
                                   <p className='card-text text-start fw-bold fs-4'>${product.price}</p>
-                                  <button class="py-2 px-3 text-white btn btn-primary btn-sm rounded-lg">Add To Cart <i>+</i></button>
+                                  <button onClick={handleAddToCart} class="py-2 px-3 text-white btn btn-primary btn-sm rounded-lg">Add To Cart <i>+</i></button>
                               </div>
                           </div>
                       </div>
