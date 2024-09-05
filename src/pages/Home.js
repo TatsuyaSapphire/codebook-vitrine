@@ -29,7 +29,7 @@ export const Home =() =>{
           <h1 className='text-decoration-underline fs-4 fw-bold'>Student About CodeBook</h1>
           <div className='container mt-5'>
             <div className='row'>
-              <div className='col'>
+              <div className='col border border-light-subtle rounded-top'>
                 <figure>
                   <blockquote>
                   <h3>Very easy this was to integrate</h3>
@@ -44,7 +44,7 @@ export const Home =() =>{
                   </figcaption>
                 </figure>
               </div>
-              <div className='col'>
+              <div className='col border border-light-subtle rounded-top'>
                 <figure>
                   <blockquote>
                   <h3>Very easy this was to integrate</h3>
@@ -61,7 +61,7 @@ export const Home =() =>{
               </div>
             </div>
             <div className='row'>
-            <div className='col'>
+            <div className='col border border-light-subtle rounded-bottom'>
                 <figure>
                   <blockquote>
                   <h3>Very easy this was to integrate</h3>
@@ -76,7 +76,7 @@ export const Home =() =>{
                   </figcaption>
                 </figure>
               </div>
-              <div className='col'>
+              <div className='col border border-light-subtle rounded-bottom'>
                 <figure>
                   <blockquote>
                   <h3>Very easy this was to integrate</h3>
@@ -95,40 +95,41 @@ export const Home =() =>{
           </div>
       </section>
       <section>
-        <div className='container'>
-          <div class="accordion" id="accordionPanelsStayOpenExample">
-            <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+        <div className='container mt-5 border border-light-subtle rounded'>
+            <h4 className='my-4'>Question in mind</h4>
+          <div className="accordion accordion-flush" id="accordionFlushExample">
+            <div className="accordion-item">
+              <h2 className="accordion-header">
+                <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
                   Accordion Item #1
                 </button>
               </h2>
-              <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
-                <div class="accordion-body text-start">
+              <div id="panelsStayOpen-collapseOne" className="accordion-collapse collapse show">
+                <div className="accordion-body text-start">
                   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus earum dicta nesciunt, nulla alias consequuntur cumque incidunt saepe mollitia esse! Magni praesentium delectus excepturi nostrum illo repellendus cum eius neque, aperiam dolores quaerat quis dolore magnam doloremque minus sint nemo qui necessitatibus at. Perspiciatis, corrupti cum labore quos odio porro!
                 </div>
               </div>
             </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+            <div className="accordion-item">
+              <h2 className="accordion-header">
+                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
                   Accordion Item #2
                 </button>
               </h2>
-              <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
-                <div class="accordion-body">
+              <div id="panelsStayOpen-collapseTwo" className="accordion-collapse collapse">
+                <div className="accordion-body">
                   <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
                 </div>
               </div>
             </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+            <div className="accordion-item">
+              <h2 className="accordion-header">
+                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
                   Accordion Item #3
                 </button>
               </h2>
-              <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
-                <div class="accordion-body">
+              <div id="panelsStayOpen-collapseThree" className="accordion-collapse collapse">
+                <div className="accordion-body">
                   <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
                 </div>
               </div>

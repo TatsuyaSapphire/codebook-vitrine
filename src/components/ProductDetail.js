@@ -47,7 +47,7 @@ export const ProductDetail = () => {
           <div className='container'>
             <div className='row mt-5'>
               <div className='col'>
-                <img src={product.poster}></img>
+                <img className='rounded mx-auto d-block' src={product.poster}></img>
               </div>
               <div className='col text-start'>
                 <p className='fw-bold fs-3'> €{product.price} </p>

@@ -2,7 +2,7 @@ import React from 'react'
 
 export const Footer = () => {
   return (
-    <footer id="sticky-footer" className="flex-shrink-0 py-4 bg-dark text-white-50 mt-5">
+    <footer id="sticky-footer" className="flex-shrink-0 py-4 bg-dark text-white-50 mt-5 sticky-bottom">
     <div className="container text-center">
         <div className='row'>
         <small className='col'>Copyright &copy; Your Website</small>

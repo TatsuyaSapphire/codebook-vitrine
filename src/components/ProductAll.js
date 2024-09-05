@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { getAllProducts } from '../data/api';
+import { Link } from 'react-router-dom';
 import Star from '../assets/etoile.png'
+import '../App.css';
 
 export const AllProducts= () => {
   const [products, setProducts] = useState([]);
@@ -37,15 +39,17 @@ export const AllProducts= () => {
   return (
     <div>
       <h4 className='link-underline-primarys'>Featured eBooks</h4>
-        <div className='container mt-5'>
+        <div className='container mt-5 cardContainer'>
           <div className='row'>
               {products.map((product) => (
                   <div className='col-4 mt-5'>
                       <div className='card'>
-                      <img src={product.poster} className='card-img-top' alt='product-img'></img>
-                          <div className='card-body' key={product.id}>
-                              <h5 className='card-title fw-bold fs-4 text-start'>{product.name}</h5>
-                              <p className='card-text text-start'>{product.overview}</p>
+                            <Link to={`/product/${product.id}`}>
+                              <img src={product.poster} className='card-img-top cardImg' alt='product-img'></img>
+                            </Link>
+                          <div className='card-body cardBody' key={product.id}>
+                              <h5 className='card-title fw-bold fs-4 text-start cardTitle'>{product.name}</h5>
+                              <p className='card-text text-start cardDescription'>{product.overview}</p>
                               <div style={{ display: 'flex', color: '#FFD700' }}>
                                   {renderStars(product.rating)}
                               </div>
@@ -62,3 +66,4 @@ export const AllProducts= () => {
     </div>
   );
 };
+
