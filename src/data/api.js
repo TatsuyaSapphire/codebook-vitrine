@@ -48,7 +48,7 @@ export const getProductById = async (id) => {
   }
 };
 
-export const addToCart = async (product) => {
+export const addToCart = async (products) => {
   const user = auth.currentUser;
 
   // Vérifie si l'utilisateur est connecté
@@ -60,7 +60,7 @@ export const addToCart = async (product) => {
   try {
     // Référence au panier de l'utilisateur dans Firestore
     const cartRef = collection(db, 'users', user.uid, 'cart');
-    await addDoc(cartRef, product);
+    await addDoc(cartRef, products);
     alert("Produit ajouté au panier !");
   } catch (error) {
     console.error("Erreur lors de l'ajout au panier : ", error);

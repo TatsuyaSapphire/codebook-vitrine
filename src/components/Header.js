@@ -2,6 +2,7 @@ import React,{ useState, useEffect }from 'react';
 import {NavLink} from 'react-router-dom';
 import { useSearch } from '../components/SearchContext';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../components/AuthVerif';
 import logo from '../assets/logo.png'
 import '../index.css';
 import './Header.css';
@@ -17,6 +18,8 @@ export const Header = () => {
     const handleRedirect = () => {
       navigate('/products'); // Redirige vers la liste des produits
     };
+
+    const { user, logout } = useAuth();
 
     const { toggleSearchBar } = useSearch();
     const [theme, setTheme] = useState(JSON.parse(localStorage.getItem('theme')) || 'light')
@@ -42,17 +45,25 @@ export const Header = () => {
                 </div>
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <div class="dropdown-center">
-                        <button class="btn btn-secondary dropdown-toggle rounded-5" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-user"></i>
+                        <button className="btn btn-secondary dropdown-toggle rounded-5" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i className="fa-solid fa-user"></i>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" type="button" href="#" onClick={handleRedirect}>All eBooks</a></li>
-                            <li><a class="dropdown-item" type="button" href="#" onClick={handleRedirectToLogin}>Login</a></li>
-                            <li><a class="dropdown-item" href="#">Register</a></li>
+                            {user ? (
+                                <>
+                                <li className='dropdown-item' type="button" href="/" onClick={logout}>Deconnexion</li>
+                                </>
+                            ) : (
+                                <li><a className="dropdown-item" type="button" href="/" onClick={handleRedirectToLogin}>Login</a></li>
+                            )}
+                            <li><a className="dropdown-item" type="button" href="/" onClick={handleRedirect}>All eBooks</a></li>
                         </ul>
                     </div>
+                    <div>
+                        <span type="button" onClick={() => navigate('/cart')}><i class="fa-solid fa-cart-shopping"></i></span>
+                    </div>
                     <button className="btn btn-outline-primary" onClick={toggleSearchBar}>
-                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <i className="fa-solid fa-magnifying-glass"></i>
                     </button>
                     <btn></btn>
                     <div className='themeSelector'>

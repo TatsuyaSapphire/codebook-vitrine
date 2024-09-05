@@ -1,6 +1,6 @@
 // src/contexts/AuthContext.js
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { auth, provider } from '../firebase/server';
+import { auth, provider } from '../firebase/server'; // Assurez-vous que vous importez auth et provider depuis le bon fichier
 import { signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
 
 // Création du contexte d'authentification
