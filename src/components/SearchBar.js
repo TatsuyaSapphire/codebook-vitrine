@@ -16,17 +16,19 @@ export const SearchBar = () => {
 
 
     return (
-      <form className="d-flex justify-content-center mb-3" onSubmit={handleSearch} style={{ display: showSearchBar ? 'block' : 'none' }}>
-        <input
-          type="text"
-          className="form-control me-2"
-          placeholder="Rechercher un produit..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <button type="submit" className="btn btn-primary">
-          Rechercher
-        </button>
-      </form>
+      <div className='container' style={{ display: showSearchBar ? 'block' : 'none' }}>
+          <form className="d-flex justify-content-center mb-3" onSubmit={handleSearch}>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Rechercher un produit..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <button type="submit" className="btn btn-primary">
+              Rechercher
+            </button>
+          </form>
+      </div>
     );
 };

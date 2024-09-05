@@ -1,7 +1,6 @@
 import React, { useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom'; // Pour récupérer les paramètres d'URL
 import { getProductById } from '../data/api'; // Importer la fonction getProductById
-import {SearchBar} from './SearchBar';
 
 export const ProductDetail = () => {
     const { id } = useParams(); // Récupérer l'ID du produit depuis les paramètres d'URL
@@ -33,7 +32,6 @@ export const ProductDetail = () => {
 
     return (
         <div>
-          <SearchBar/>
           <h1>{product.title}</h1>
           <p> {product.overview} </p>
           <p> {product.price} </p>

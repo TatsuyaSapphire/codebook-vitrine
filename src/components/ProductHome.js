@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getFeaturedProducts } from '../data/api';
+import { Link } from 'react-router-dom';
 import Star from '../assets/etoile.png'
 
 export const ProductHome = () => {
@@ -44,7 +45,9 @@ export const ProductHome = () => {
                 {products.slice(0, 3).map((product) => (
                     <div className='col'>
                         <div className='card'>
-                        <img src={product.poster} className='card-img-top' alt='product-img'></img>
+                            <Link to={`/product/${product.id}`}>
+                              <img src={product.poster} className='card-img-top' alt='product-img'></img>
+                            </Link>
                             <div className='card-body' key={product.id}>
                                 <h5 className='card-title fw-bold fs-4 text-start'>{product.name}</h5>
                                 <p className='card-text text-start'>{product.overview}</p>
