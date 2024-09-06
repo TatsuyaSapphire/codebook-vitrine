@@ -39,6 +39,10 @@ header.dark .navbar {
   color: black;
 }
 
+.navbar-brand img {
+  margin-right: 0.5em;
+}
+
 .navbar-brand:hover, .navbar-brand:visited {
   color: black;
 }

@@ -65,46 +65,57 @@ export const AllProducts = () => {
   }
 
   return (
-    <main className={`pt-5 ${theme === 'light' ? 'light' : 'dark'}`}>
-      <h4 className='link-underline-primarys'>Featured eBooks</h4>
-      <div className='container mt-5 cardContainer'>
-        <div className='row'>
-          {products.map((product) => (
-            <div className='col-4 mt-5' key={product.id}>
-              <div className='card'>
-                <Link to={`/product/${product.id}`}>
-                  <img src={product.poster} className='card-img-top cardImg' alt='product-img' />
-                </Link>
-                <div className='card-body cardBody'>
-                  <h5 className='card-title fw-bold fs-4 text-start cardTitle'>{product.name}</h5>
-                  <p className='card-text text-start cardDescription'>{product.overview}</p>
-                  <div style={{ display: 'flex', color: '#FFD700' }}>
-                    {renderStars(product.rating)}
-                  </div>
-                  <div className='d-flex justify-content-between mt-4'>
-                    <p className='card-text text-start fw-bold fs-4'>${product.price}</p>
-                    {cartItems.includes(product.id) ? (
-                      <button
-                        onClick={() => handleRemoveFromCart(product.id)}
-                        className='py-2 px-3 text-white btn btn-danger btn-sm rounded-lg'
-                      >
-                        Remove From Cart <i>-</i>
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => handleAddToCart(product.id)}
-                        className='py-2 px-3 text-white btn btn-primary btn-sm rounded-lg'
-                      >
-                        Add To Cart <i>+</i>
-                      </button>
-                    )}
+    <main className={`pt-3 pb-5 ps-5 ${theme === 'light' ? 'light' : 'dark'}`}>
+      <section className="container d-flex flex-column w-75 mx-auto">
+        <div className="d-flex justify-content-between align-items-center">
+          <h4 className='link-underline-primarys fw-bold'>All eBooks({products.length})</h4>
+          <button className={`burger-btn rounded me-5 ${theme === 'light' ? 'light' : 'dark'}`} onClick="rien">
+            <i className="bi bi-three-dots-vertical"></i>
+          </button>
+        </div>
+        <div className='cardContainer'>
+          <div className='row ps-3'>
+            {products.map((product) => (
+              <div className='col-4 mt-5' key={product.id}>
+                <div className='card'>
+                  <Link to={`/product/${product.id}`}>
+                    <img src={product.poster} className='card-img-top cardImg' alt='product-img' />
+                  </Link>
+                  <div className='card-body cardBody'>
+                    <h5 className='card-title fw-bold fs-4 text-start cardTitle'>{product.name}</h5>
+                    <p className='card-text text-start cardDescription'>{product.overview}</p>
+                    <div style={{ display: 'flex', color: '#FFD700' }}>
+                      {renderStars(product.rating)}
+                    </div>
+                    <div className='d-flex justify-content-between mt-4'>
+                      <p className='card-text text-start fw-bold fs-4'>${product.price}</p>
+                      {cartItems.includes(product.id) ? (
+                        <button
+                          onClick={() => handleRemoveFromCart(product.id)}
+                          className='text-white btn btn-danger btn-sm rounded-lg fw-bold'
+                        >
+                          Remove From Cart <i>-</i>
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => handleAddToCart(product.id)}
+                          className='text-white btn btn-primary btn-sm rounded-lg fw-bold'
+                        >
+                          Add To Cart <i>+</i>
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
+      <section className="filter">
+
+
+      </section>
     </main>
   );
 };

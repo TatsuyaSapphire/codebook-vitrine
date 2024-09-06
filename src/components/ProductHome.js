@@ -3,10 +3,12 @@ import { getFeaturedProducts, addToCart } from '../data/api';
 import { Link } from 'react-router-dom';
 import Star from '../assets/etoile.png'
 import '../App.css';
+import { useSelector } from 'react-redux';
 
 export const ProductHome = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const theme = useSelector(state => state.themeState.theme);
 
   const handleAddToCart = (productId) => {
     if (!productId) {
@@ -47,12 +49,11 @@ export const ProductHome = () => {
   }
 
   return (
-    <div>
+    <main className={`${theme === 'light' ? 'light' : 'dark'}`}>
       <h4 className='link-underline-primarys'>Featured eBooks</h4>
-        <div className='container cardContainer mt-5'>
-            <div className='row'>
-                {products.slice(0, 3).map((product) => (
-                    <div className='col'>
+        <div className='container cardContainer mt-5 d-flex justify-content-center ps-5'>
+                {products.map((product) => (
+                    <div className='col-4 rounded' key={product.id}>
                         <div className='card'>
                             <Link to={`/product/${product.id}`}>
                               <img src={product.poster} className='card-img-top cardImg' alt='product-img'></img>
@@ -65,14 +66,13 @@ export const ProductHome = () => {
                                 </div>
                                 <div className='d-flex justify-content-between mt-4'>
                                     <p className='card-text text-start fw-bold fs-4'>${product.price}</p>
-                                    <button onClick={() => handleAddToCart(product.id)} class="py-2 px-3 text-white btn btn-primary btn-sm rounded-lg">Add To Cart <i>+</i></button>
+                                    <button onClick={() => handleAddToCart(product.id)} className="py-2 px-3 text-white btn btn-primary btn-sm rounded-lg">Add To Cart <i>+</i></button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 ))}
             </div>
-        </div>
-    </div>
+    </main>
   );
 };

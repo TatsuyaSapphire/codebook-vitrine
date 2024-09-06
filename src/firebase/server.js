@@ -10,15 +10,24 @@ import { getFirestore } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 
+// const firebaseConfig = {
+//   // vraie BDD
+//   apiKey: "AIzaSyCUdlxy1aznOB66jibvaZAdma7BK28lRW8",
+//   authDomain: "projet-final-5ee16.firebaseapp.com",
+//   projectId: "projet-final-5ee16",
+//   storageBucket: "projet-final-5ee16.appspot.com",
+//   messagingSenderId: "265741752262",
+//   appId: "1:265741752262:web:aa84ee5ca70c2c1201c4c7"
+
+// };
+
 const firebaseConfig = {
-
-  apiKey: "AIzaSyCUdlxy1aznOB66jibvaZAdma7BK28lRW8",
-  authDomain: "projet-final-5ee16.firebaseapp.com",
-  projectId: "projet-final-5ee16",
-  storageBucket: "projet-final-5ee16.appspot.com",
-  messagingSenderId: "265741752262",
-  appId: "1:265741752262:web:aa84ee5ca70c2c1201c4c7"
-
+apiKey: "AIzaSyAYPObEW9BAXjdfA-6XwI5IgnRJxEGWoDc",
+authDomain: "backup-final.firebaseapp.com",
+projectId: "backup-final",
+storageBucket: "backup-final.appspot.com",
+messagingSenderId: "1003001454849",
+appId: "1:1003001454849:web:3a446b0c5cb5e75b40fb00",
 };
 
 

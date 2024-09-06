@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ProductHome } from '../components/ProductHome';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -30,9 +30,9 @@ export const Home =() =>{
       <section className='container my-5 w-75 mx-auto px-0'>
           <h1 className='text-decoration-underline fs-4 fw-bold'>Student About CodeBook</h1>
           <div className='mt-3 d-flex flex-wrap align-content-start'>
-            <figure className="border py-5 w-50 m-0 border-dark-subtle">
+            <figure className="py-5 w-50 m-0">
               <blockquote className="px-5">
-                <h4>Very easy this was to integrate</h4>
+                <h4 className="fw-bold">Very easy this was to integrate</h4>
                 <p>If you care for your time, I hands down would go with this."</p>
               </blockquote>
               <figcaption className='d-flex flex-row justify-content-center mt-5'>
@@ -43,9 +43,9 @@ export const Home =() =>{
                 </div>
               </figcaption>
             </figure>
-            <figure className="border py-5 w-50 m-0 border-dark-subtle">
+            <figure className="py-5 w-50 m-0">
               <blockquote className="px-5">
-                <h4>Solid foundation for any project</h4>
+                <h4 className="fw-bold">Solid foundation for any project</h4>
                 <p>Designing with Figma components that can be easily translated to the utility classes of Tailwind CSS is a huge timesaver!"</p>
               </blockquote>
               <figcaption className='d-flex flex-row justify-content-center mt-5'>
@@ -56,9 +56,9 @@ export const Home =() =>{
                 </div>
               </figcaption>
             </figure>
-            <figure className="border py-5 w-50 m-0 border-dark-subtle">
+            <figure className="py-5 w-50 m-0">
               <blockquote className="px-5">
-                <h4>Mindblowing workflow</h4>
+                <h4 className="fw-bold">Mindblowing workflow</h4>
                 <p>Aesthetically, the well designed components are beautiful and will undoubtedly level up your next application."</p>
               </blockquote>
               <figcaption className='d-flex flex-row justify-content-center mt-5'>
@@ -69,9 +69,9 @@ export const Home =() =>{
                 </div>
               </figcaption>
             </figure>
-            <figure className="border py-5 w-50 m-0 border-dark-subtle">
+            <figure className="py-5 w-50 m-0">
               <blockquote className="px-5">
-                <h4>Efficient Collaborating</h4>
+                <h4 className="fw-bold">Efficient Collaborating</h4>
                 <p>You have many examples that can be used to create a fast prototype for your team."</p>
               </blockquote>
               <figcaption className='d-flex flex-row justify-content-center mt-5'>
@@ -84,13 +84,13 @@ export const Home =() =>{
             </figure>
           </div>
       </section>
-      <section className="container my-10 border rounded shadow-sm w-75 mx-auto border-dark-subtle">
+      <section className="container my-10 rounded shadow-sm w-75 mx-auto accordion-container">
         <div className='py-5 px-4'>
           <h3><span className="border-bottom pb-3">Question in mind ?</span></h3>
           <div className="accordion mt-5 accordion-flush" id="accordionPanelsStayOpenExample">
             <div className={`accordion-item ${theme === 'light' ? 'light' : 'dark'}`}>
               <h2 className="accordion-header">
-                <button className={`accordion-button collapsed ${theme === 'light' ? 'light' : 'dark'}`} type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                <button className={`accordion-button collapsed ${theme === 'light' ? 'light text-dark' : 'dark text-white'}`} type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
                   <span className={`h5 ${theme === 'light' ? 'text-dark' : 'text-white'}`}>Why should I use CodeBook?</span>
                 </button>
               </h2>
@@ -107,13 +107,13 @@ export const Home =() =>{
                 </button>
               </h2>
               <div id="panelsStayOpen-collapseTwo" className="accordion-collapse collapse">
-                <div class="accordion-body text-start">
+                <div className="accordion-body text-start">
                   <p className={`h5 ${theme === 'light' ? 'text-dark' : 'p-grey'}`}>Lorem ipsum dolor sit amet consectetur adipisicing elit. At accusamus nobis tempore perferendis qui, quam, atque reprehenderit vero quaerat, assumenda pariatur eveniet. Maxime eaque, neque corrupti ad minus repudiandae consectetur!</p>
                 </div>
               </div>
             </div>
             <div className={`accordion-item ${theme === 'light' ? 'light' : 'dark'}`}>
-              <h2 claclassNamess="accordion-header">
+              <h2 className="accordion-header">
                 <button className={`accordion-button collapsed ${theme === 'light' ? 'light' : 'dark'}`} type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
                   <span className={`h5 ${theme === 'light' ? 'text-dark' : 'text-white'}`}>Do you offer refunds?</span>
                 </button>
@@ -125,7 +125,7 @@ export const Home =() =>{
               </div>
             </div>
             <div className={`accordion-item ${theme === 'light' ? 'light' : 'dark'}`}>
-              <h2 claclassNamess="accordion-header">
+              <h2 className="accordion-header">
                 <button className={`accordion-button collapsed ${theme === 'light' ? 'light' : 'dark'}`} type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
                   <span className={`h5 ${theme === 'light' ? 'text-dark' : 'text-white'}`}>Do you support Internation payments?</span>
                 </button>

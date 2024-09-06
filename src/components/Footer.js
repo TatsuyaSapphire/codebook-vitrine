@@ -10,9 +10,9 @@ export const Footer = () => {
       <div className="container d-flex justify-content-between align-items-center">
           <div><small className='col'>Copyright &copy; <a href="/#">CodeBook</a>. All Rights Reserved.</small></div>
           <div className='col d-flex flex-row-reverse'>
-            <a href='/#' className='m-2 text-decoration-none'><i class="bi bi-instagram"></i></a>
-            <a href='/#' className='m-2 text-decoration-none'><i class="bi bi-twitter"></i></a>
-            <a href='/#' className='m-2 text-decoration-none'><i class="bi bi-github"></i></a>
+            <a href='/#' className='m-2 text-decoration-none'><i className="bi bi-instagram"></i></a>
+            <a href='/#' className='m-2 text-decoration-none'><i className="bi bi-twitter"></i></a>
+            <a href='/#' className='m-2 text-decoration-none'><i className="bi bi-github"></i></a>
           </div>
       </div>
     </footer>
