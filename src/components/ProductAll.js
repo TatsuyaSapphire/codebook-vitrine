@@ -3,11 +3,13 @@ import { getAllProducts, addToCart, removeFromCart, getCartItems } from '../data
 import { Link } from 'react-router-dom';
 import Star from '../assets/etoile.png';
 import '../App.css';
+import { useSelector } from 'react-redux';
 
 export const AllProducts = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cartItems, setCartItems] = useState([]);
+  const theme = useSelector(state => state.themeState.theme);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -63,7 +65,7 @@ export const AllProducts = () => {
   }
 
   return (
-    <div>
+    <main className={`pt-5 ${theme === 'light' ? 'light' : 'dark'}`}>
       <h4 className='link-underline-primarys'>Featured eBooks</h4>
       <div className='container mt-5 cardContainer'>
         <div className='row'>
@@ -103,6 +105,6 @@ export const AllProducts = () => {
           ))}
         </div>
       </div>
-    </div>
+    </main>
   );
 };

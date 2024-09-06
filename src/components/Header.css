@@ -26,11 +26,25 @@ header {
 
 .navbar {
   padding: 1rem 2rem;
+  border-bottom: 1px solid rgb(200, 200, 200);
+}
+
+header.dark .navbar {
+  border: none;
 }
 
 .navbar-brand {
   font-size: 1.5rem;
   font-weight: bold;
+  color: black;
+}
+
+.navbar-brand:hover, .navbar-brand:visited {
+  color: black;
+}
+
+header.dark .navbar-brand, header.dark .navbar-brand:hover, header.dark .navbar-brand:visited {
+  color: white
 }
 
 .nav-link {
@@ -42,53 +56,36 @@ header {
   color: #ddd;
 }
 
-
 .navbar-collapse {
   display: flex;
   justify-content: center;
 
 }
 
-
 .nav-item {
   margin: 0 15px;
 }
 
-.theme-selector {
-  display: flex;
-  align-items: center;
-  margin-right: 2.5rem;
-
-  
+header button {
+  margin-right: 1em;
+  border: none;
+  background-color: white;
 }
 
-.theme-selector span {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  margin-left: 0.5rem;
-  cursor: pointer;
-  
+header button i {
+  color: black;
 }
 
-.theme-selector .light {
-  background-color: #fff;
-  border: 1px solid #000;
+header.dark, header.dark button {
+  background-color: #111827;
 }
 
-.theme-selector .dark {
-  background-color: #343a40;
-  border: 1px solid #fff;
+header.dark button i {
+  color: #ffffff;
 }
 
-.theme-selector .activeTheme {
-  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.3);
-}
-
-  .themeSelector {
-  display: flex;
-  align-items: center;
-  margin-left: auto;
+header .dropdown-toggle {
+  margin-right: 0;
 }
 
 .search-bar {

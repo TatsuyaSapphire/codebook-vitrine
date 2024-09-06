@@ -1,25 +1,25 @@
 import React, { useState } from 'react';
 import { ProductHome } from '../components/ProductHome';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 export const Home =() =>{
+
   const navigate = useNavigate();
+  const theme = useSelector(state => state.themeState.theme);
 
   const handleNavigateToProducts = () => {
     navigate('/products'); // Redirige vers la page de tous les produits
   };
 
-  const [theme, setTheme] = useState(JSON.parse(localStorage.getItem('theme')) || 'light')
-
-
   return(
-    <main>
-      <section className="container d-flex flex-row justify-content-center mt-5 mb-5">
+    <main className={`py-5 ${theme === 'light' ? 'light' : 'dark'}`}>
+      <section className="container d-flex flex-row justify-content-center mb-5">
         <div className="text-start my-5">
-          <h1 className="text-5xl font-bold mb-4">The Ultimate eBook Store</h1>
-          <p>CodeBook is the world's most popular and authoritative source for computer science ebooks. Find ratings and access to the newest books digitally.</p>
-          <a type="button" onClick={handleNavigateToProducts} className="text-white btn btn-primary py-2 px-4">Explore eBooks</a>
+          <h1 className="display-5 font-bold mb-4">The Ultimate eBook Store</h1>
+          <p className="h4 mb-4 pe-3">CodeBook is the world's most popular and authoritative source for computer science ebooks. Find ratings and access to the newest books digitally.</p>
+          <a type="button" onClick={handleNavigateToProducts} className="text-white btn btn-primary py-2 px-4 mt-2">Explore eBooks</a>
         </div>
         <div>
           <img className="rounded mx-auto d-block" width="576" height="384" src="https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=60" alt="CodeBook Hero Section">
@@ -32,53 +32,53 @@ export const Home =() =>{
           <div className='mt-3 d-flex flex-wrap align-content-start'>
             <figure className="border py-5 w-50 m-0 border-dark-subtle">
               <blockquote className="px-5">
-                <h3>Very easy this was to integrate</h3>
+                <h4>Very easy this was to integrate</h4>
                 <p>If you care for your time, I hands down would go with this."</p>
               </blockquote>
               <figcaption className='d-flex flex-row justify-content-center mt-5'>
                 <img className='rounded-circle' alt='test' src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=120&q=50'></img>
                 <div className='text-start'>
-                  <div>Bonnie Green</div>
-                  <div>Developer at Random AI</div>
+                  <div className="info-student">Bonnie Green</div>
+                  <div className="info-student-job">Developer at Random AI</div>
                 </div>
               </figcaption>
             </figure>
             <figure className="border py-5 w-50 m-0 border-dark-subtle">
               <blockquote className="px-5">
-                <h3>Solid foundation for any project</h3>
+                <h4>Solid foundation for any project</h4>
                 <p>Designing with Figma components that can be easily translated to the utility classes of Tailwind CSS is a huge timesaver!"</p>
               </blockquote>
               <figcaption className='d-flex flex-row justify-content-center mt-5'>
                 <img className='rounded-circle' alt='test' src='https://images.unsplash.com/photo-1525085475165-c6808cdb005e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=120&q=50'></img>
                 <div className='text-start'>
-                  <div>Roberta Casas</div>
-                  <div>Lead designer at Random</div>
+                  <div className="info-student">Roberta Casas</div>
+                  <div className="info-student-job">Lead designer at Random</div>
                 </div>
               </figcaption>
             </figure>
             <figure className="border py-5 w-50 m-0 border-dark-subtle">
               <blockquote className="px-5">
-                <h3>Mindblowing workflow</h3>
+                <h4>Mindblowing workflow</h4>
                 <p>Aesthetically, the well designed components are beautiful and will undoubtedly level up your next application."</p>
               </blockquote>
               <figcaption className='d-flex flex-row justify-content-center mt-5'>
                 <img className='rounded-circle' alt='test' src='https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=120&q=60'></img>
                 <div className='text-start'>
-                  <div>Jese Leos</div>
-                  <div>Software Engineer at Random</div>
+                  <div className="info-student">Jese Leos</div>
+                  <div className="info-student-job">Software Engineer at Random</div>
                 </div>
               </figcaption>
             </figure>
             <figure className="border py-5 w-50 m-0 border-dark-subtle">
               <blockquote className="px-5">
-                <h3>Efficient Collaborating</h3>
+                <h4>Efficient Collaborating</h4>
                 <p>You have many examples that can be used to create a fast prototype for your team."</p>
               </blockquote>
               <figcaption className='d-flex flex-row justify-content-center mt-5'>
                 <img className='rounded-circle' alt='test' src='https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=120&q=60'></img>
                 <div className='text-start'>
-                  <div>Joseph McFall</div>
-                  <div>CTO at Random</div>
+                  <div className="info-student">Joseph McFall</div>
+                  <div className="info-student-job">CTO at Random</div>
                 </div>
               </figcaption>
             </figure>

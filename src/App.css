@@ -64,6 +64,27 @@ header .themeSelector .activeTheme{
 }
 
 /* CONTAINER */
+
+main h1, main h3, main .info-student, main h4 {
+  color: black
+}
+
+main.dark h1, main.dark h3, main.dark .info-student, main.dark h4 {
+  color: white
+}
+
+main p, main .info-student-job {
+  color: #6b7280 !important;
+}
+
+main.dark p, main.dark .info-student-job {
+  color: rgba(198, 199, 201, 0.75) !important;
+}
+
+main.dark figure {
+  background-color: #1f2937;
+}
+
 .cardImg {
 
   height: 250px;
@@ -134,18 +155,23 @@ figcaption img {
   margin-right: 1em;
 }
 
-.p-grey {
-  color: rgba(198, 199, 201, 0.75) !important;
+footer, footer a, footer small {
+  color: #6b7280;
+}
+
+footer.dark, footer.dark a {
+  background-color: #1f2937;
+  color: #9ca3af;
 }
 
 footer a {
   text-decoration: none;
 }
 
-footer a:hover {
+footer.dark a:hover {
   text-decoration: underline;
 }
 
-footer i:hover {
+footer.dark i:hover {
   color: white;
 }
