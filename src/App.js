@@ -6,18 +6,22 @@ import { AllRoutes } from './routes/AllRoutes';
 import {SearchBar} from './components/SearchBar';
 import { SearchProvider } from './components/SearchContext';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { AuthProvider } from './components/AuthVerif'; // Importer le contexte AuthProvider
 
 function App() {
   return (
     <div className="App">
+      <AuthProvider>
         <SearchProvider>
           <Header/>
           <SearchBar/>
           <AllRoutes/>
           <Footer/>
         </SearchProvider>
+      </AuthProvider>
     </div>
   );
 }
+
 
 export default App;

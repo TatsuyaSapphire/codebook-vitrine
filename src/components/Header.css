@@ -3,8 +3,6 @@
   --background-color: #334364b;
 }
 
-
-
 .light {
   --primary-color: #000;
   --background-color: #fff;
@@ -25,9 +23,6 @@ header {
   margin-bottom: 1rem;
   background-color: #34364b;
 }
-
-
-
 
 .navbar {
   padding: 1rem 2rem;

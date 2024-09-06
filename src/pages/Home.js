@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 export const Home =() =>{
   const navigate = useNavigate();
 
-  const handleRedirect = () => {
-    navigate('/products'); // Redirige vers la liste des produits
+  const handleNavigateToProducts = () => {
+    navigate('/products'); // Redirige vers la page de tous les produits
   };
 
   const [theme, setTheme] = useState(JSON.parse(localStorage.getItem('theme')) || 'light')
@@ -19,7 +19,7 @@ export const Home =() =>{
         <div className="text-start my-5">
           <h1 className="text-5xl font-bold mb-4">The Ultimate eBook Store</h1>
           <p>CodeBook is the world's most popular and authoritative source for computer science ebooks. Find ratings and access to the newest books digitally.</p>
-          <a type="button" onClick={handleRedirect} className="text-white btn btn-primary py-2 px-4">Explore eBooks</a>
+          <a type="button" onClick={handleNavigateToProducts} className="text-white btn btn-primary py-2 px-4">Explore eBooks</a>
         </div>
         <div>
           <img className="rounded mx-auto d-block" width="576" height="384" src="https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=60" alt="CodeBook Hero Section">
