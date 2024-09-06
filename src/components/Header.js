@@ -37,38 +37,35 @@ export const Header = () => {
     return (
         <header>
             <nav className="container navbar navbar-expand-lg navbar-dark">
-                <div className='row'>
-                    <NavLink to='/' className='navbar-brand'><img src={logo} style={logoStyle} alt='logo'></img>CodeBook</NavLink>
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                </div>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <div class="dropdown-center">
-                        <button className="btn btn-secondary dropdown-toggle rounded-5" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i className="fa-solid fa-user"></i>
-                        </button>
-                        <ul class="dropdown-menu">
-                            {user ? (
-                                <>
-                                <li className='dropdown-item' type="button" href="/" onClick={logout}>Deconnexion</li>
-                                </>
-                            ) : (
-                                <li><a className="dropdown-item" type="button" href="/" onClick={handleRedirectToLogin}>Login</a></li>
-                            )}
-                            <li><a className="dropdown-item" type="button" href="/" onClick={handleRedirect}>All eBooks</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <span type="button" onClick={() => navigate('/cart')}><i class="fa-solid fa-cart-shopping"></i></span>
-                    </div>
-                    <button className="btn btn-outline-primary" onClick={toggleSearchBar}>
-                        <i className="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                    <btn></btn>
-                    <div className='themeSelector'>
-                        <span onClick={() => setTheme('light')} className={ theme === 'light' ? 'light activeTheme' : 'light'}></span>
-                        <span onClick={() => setTheme('dark')} className={ theme === 'dark' ? 'dark activeTheme' : 'dark' }></span>
+                <NavLink to='/' className='navbar-brand'><img src={logo} style={logoStyle} alt='logo'></img>CodeBook</NavLink>
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse container justify-content-end" id="navbarNav">
+                    <div className='row'>
+                        <div class="dropdown-center col">
+                            <button className="btn dropdown-toggle text-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i className="fa-solid fa-user"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                {user ? (
+                                    <>
+                                    <li className='dropdown-item' type="button" href="/" onClick={logout}>Deconnexion</li>
+                                    </>
+                                ) : (
+                                    <li><a className="dropdown-item" type="button" href="/" onClick={handleRedirectToLogin}>Login</a></li>
+                                )}
+                                <li><a className="dropdown-item" type="button" href="/" onClick={handleRedirect}>All eBooks</a></li>
+                            </ul>
+                        </div>
+                        <span className='btn text-white text-center col' onClick={() => navigate('/cart')}><i class="fa-solid fa-cart-shopping"></i></span>
+                        <span className="btn text-white col" onClick={toggleSearchBar}>
+                            <i className="fa-solid fa-magnifying-glass"></i>
+                        </span>
+                        <div className='themeSelector col'>
+                            <span onClick={() => setTheme('light')} className={ theme === 'light' ? 'light activeTheme' : 'light'}></span>
+                            <span onClick={() => setTheme('dark')} className={ theme === 'dark' ? 'dark activeTheme' : 'dark' }></span>
+                        </div>
                     </div>
                 </div>
               </nav>
