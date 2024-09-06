@@ -56,3 +56,53 @@ header .themeSelector .activeTheme{
     transform: rotate(360deg);
   }
 }
+
+
+button.accordion-button.light:focus{
+  box-shadow: none;
+  outline: none; 
+  background-color: var(--background-light);
+  color: var(--text-dark);
+}
+
+button.accordion-button.light{
+  box-shadow: none;
+  outline: none; 
+  background-color: var(--background-light);
+  color: var(--text-dark);
+}
+
+button.accordion-button.dark:focus{
+  box-shadow: none;
+  outline: none; 
+  background-color: var(--background-dark);
+  color: var(--text-light);
+}
+
+button.accordion-button.dark{
+  box-shadow: none;
+  outline: none; 
+  background-color: var(--background-dark);
+  color: var(--text-light);
+}
+
+figcaption img {
+  width: 50px !important;
+  margin-right: 1em;
+}
+
+.p-grey {
+  color: rgba(198, 199, 201, 0.75) !important;
+}
+
+footer a {
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+footer i:hover {
+  color: white;
+}
