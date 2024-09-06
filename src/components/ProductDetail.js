@@ -1,12 +1,20 @@
 import React, { useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom'; // Pour récupérer les paramètres d'URL
-import { getProductById } from '../data/api'; // Importer la fonction getProductById
+import { getProductById, addToCart } from '../data/api'; // Importer la fonction getProductById
 import Star from '../assets/etoile.png'
 
 export const ProductDetail = () => {
     const { id } = useParams(); // Récupérer l'ID du produit depuis les paramètres d'URL
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const handleAddToCart = (productId) => {
+      if (!productId) {
+        console.error('ID du produit manquant ou invalide.');
+        return;
+      }
+      addToCart(productId); // Appel de la fonction d'ajout avec l'ID spécifique du produit
+    };
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -47,7 +55,7 @@ export const ProductDetail = () => {
           <div className='container'>
             <div className='row mt-5'>
               <div className='col'>
-                <img className='rounded mx-auto d-block' src={product.poster}></img>
+                <img className='rounded mx-auto d-block' alt={product.name} src={product.poster}></img>
               </div>
               <div className='col text-start'>
                 <p className='fw-bold fs-3'> €{product.price} </p>
@@ -62,7 +70,7 @@ export const ProductDetail = () => {
                   )}
                 </div>
                 <div>
-                  <button class="py-2 px-3 text-white fw-bold fs-6 btn btn-primary btn-sm rounded-lg mb-2">Add To Cart <i>+</i></button>
+                  <button onClick={() => handleAddToCart(product.id)} class="py-2 px-3 text-white fw-bold fs-6 btn btn-primary btn-sm rounded-lg mb-2">Add To Cart <i>+</i></button>
                 </div>
                 <p className='fw-bold'> {product.long_description}</p>
               </div>

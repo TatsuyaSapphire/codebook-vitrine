@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getFeaturedProducts } from '../data/api';
+import { getFeaturedProducts, addToCart } from '../data/api';
 import { Link } from 'react-router-dom';
 import Star from '../assets/etoile.png'
 import '../App.css';
@@ -7,6 +7,14 @@ import '../App.css';
 export const ProductHome = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const handleAddToCart = (productId) => {
+    if (!productId) {
+      console.error('ID du produit manquant ou invalide.');
+      return;
+    }
+    addToCart(productId); // Appel de la fonction d'ajout avec l'ID spécifique du produit
+  };
 
 
 
@@ -57,7 +65,7 @@ export const ProductHome = () => {
                                 </div>
                                 <div className='d-flex justify-content-between mt-4'>
                                     <p className='card-text text-start fw-bold fs-4'>${product.price}</p>
-                                    <button class="py-2 px-3 text-white btn btn-primary btn-sm rounded-lg">Add To Cart <i>+</i></button>
+                                    <button onClick={() => handleAddToCart(product.id)} class="py-2 px-3 text-white btn btn-primary btn-sm rounded-lg">Add To Cart <i>+</i></button>
                                 </div>
                             </div>
                         </div>

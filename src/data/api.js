@@ -1,4 +1,4 @@
-import { collection, getDocs, doc, getDoc, addDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, setDoc , getDoc, addDoc, updateDoc, arrayRemove } from 'firebase/firestore';
 import { db, auth } from '../firebase/server'; // Assurez-vous que le chemin est correct
 
 // Fonction pour récupérer tous les produits
@@ -35,35 +35,84 @@ export const getFeaturedProducts = async () => {
 // Fonction pour récupérer un produit par son ID
 export const getProductById = async (id) => {
   try {
-    const productDoc = doc(db, 'products', id);
-    const snapshot = await getDoc(productDoc);
-    if (snapshot.exists()) {
-      return { id: snapshot.id, ...snapshot.data() };
+    const productRef = doc(db, 'products', id);
+    const productSnapshot = await getDoc(productRef);
+
+    if (productSnapshot.exists()) {
+      return { id: productSnapshot.id, ...productSnapshot.data() };
     } else {
-      throw new Error('Produit non trouvé');
+      console.error('Produit non trouvé');
+      return null;
     }
   } catch (error) {
-    console.error('Erreur de récupération du produit:', error);
+    console.error('Erreur lors de la récupération du produit :', error);
     return null;
   }
 };
 
-export const addToCart = async (products) => {
-  const user = auth.currentUser;
-
-  // Vérifie si l'utilisateur est connecté
-  if (!user) {
-    alert("Vous devez être connecté pour ajouter des produits au panier.");
+export const addToCart = async (productId) => {
+  if (!productId) {
+    console.error("Erreur : ID du produit manquant.");
     return;
   }
 
   try {
-    // Référence au panier de l'utilisateur dans Firestore
-    const cartRef = collection(db, 'users', user.uid, 'cart');
-    await addDoc(cartRef, products);
-    alert("Produit ajouté au panier !");
+    // Récupérer le produit depuis Firebase pour s'assurer qu'il existe
+    const productRef = doc(db, 'products', productId);
+    const productSnapshot = await getDoc(productRef);
+
+    if (!productSnapshot.exists()) {
+      console.error("Le produit n'existe pas.");
+      return;
+    }
+
+    const productData = productSnapshot.data();
+
+    // Ajouter le produit au panier de l'utilisateur
+    const cartRef = collection(db, `users/${auth.currentUser.uid}/cart`);
+    await addDoc(cartRef, {
+      ...productData,
+      id: productId,
+    });
+
+    console.log('Produit ajouté au panier avec succès');
   } catch (error) {
-    console.error("Erreur lors de l'ajout au panier : ", error);
+    console.error('Erreur lors de l\'ajout au panier :', error);
+  }
+};
+
+export const removeFromCart = async (productId) => {
+  if (!auth.currentUser) {
+    console.error('Utilisateur non connecté. Veuillez vous connecter pour modifier votre panier.');
+    return;
+  }
+
+  try {
+    // Référence à la collection des utilisateurs
+    const userDocRef = doc(db, 'users', auth.currentUser.uid);
+    
+    // Référence au document "cartItems" du panier
+    const cartDocRef = doc(userDocRef, 'cartItems', 'items');
+
+    // Vérifiez si le document "cartItems" existe
+    const cartDocSnapshot = await getDoc(cartDocRef);
+
+    if (cartDocSnapshot.exists()) {
+      // Document existe, mettre à jour en retirant le produit
+      await updateDoc(cartDocRef, {
+        items: arrayRemove(productId)
+      });
+    } else {
+      // Document n'existe pas, créer un nouveau document avec un tableau vide
+      await setDoc(cartDocRef, {
+        items: [] // Crée un document avec un tableau vide si le document n'existe pas
+      });
+      console.log('Panier initialisé. Aucun produit trouvé à supprimer.');
+    }
+
+    console.log('Produit supprimé du panier avec succès');
+  } catch (error) {
+    console.error('Erreur lors de la suppression du produit du panier :', error);
   }
 };
 
