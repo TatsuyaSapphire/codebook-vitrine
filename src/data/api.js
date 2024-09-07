@@ -1,4 +1,4 @@
-import { collection, getDocs, doc, setDoc , getDoc, addDoc, updateDoc, arrayRemove } from 'firebase/firestore';
+import { collection, getDocs, doc , getDoc, addDoc, deleteDoc, query, where} from 'firebase/firestore';
 import { db, auth } from '../firebase/server'; // Assurez-vous que le chemin est correct
 
 // Fonction pour récupérer tous les produits
@@ -82,37 +82,35 @@ export const addToCart = async (productId) => {
 };
 
 export const removeFromCart = async (productId) => {
-  if (!auth.currentUser) {
-    console.error('Utilisateur non connecté. Veuillez vous connecter pour modifier votre panier.');
+  if (!productId) {
+    console.error("Erreur : ID du produit manquant.");
     return;
   }
 
   try {
-    // Référence à la collection des utilisateurs
-    const userDocRef = doc(db, 'users', auth.currentUser.uid);
-    
-    // Référence au document "cartItems" du panier
-    const cartDocRef = doc(userDocRef, 'cartItems', 'items');
-
-    // Vérifiez si le document "cartItems" existe
-    const cartDocSnapshot = await getDoc(cartDocRef);
-
-    if (cartDocSnapshot.exists()) {
-      // Document existe, mettre à jour en retirant le produit
-      await updateDoc(cartDocRef, {
-        items: arrayRemove(productId)
-      });
-    } else {
-      // Document n'existe pas, créer un nouveau document avec un tableau vide
-      await setDoc(cartDocRef, {
-        items: [] // Crée un document avec un tableau vide si le document n'existe pas
-      });
-      console.log('Panier initialisé. Aucun produit trouvé à supprimer.');
+    // Vérifier si l'utilisateur est connecté
+    if (!auth.currentUser) {
+      console.error("Erreur : Utilisateur non connecté.");
+      return;
     }
 
-    console.log('Produit supprimé du panier avec succès');
+    // Référence vers le panier de l'utilisateur
+    const cartRef = collection(db, `users/${auth.currentUser.uid}/cart`);
+    // Rechercher le produit dans le panier
+    const q = query(cartRef, where('id', '==', productId));
+    const querySnapshot = await getDocs(q);
+
+    // Suppression du produit trouvé
+    if (!querySnapshot.empty) {
+      querySnapshot.forEach(async (doc) => {
+        await deleteDoc(doc.ref);
+        console.log('Produit retiré du panier avec succès');
+      });
+    } else {
+      console.error("Le produit n'est pas dans le panier.");
+    }
   } catch (error) {
-    console.error('Erreur lors de la suppression du produit du panier :', error);
+    console.error('Erreur lors de la suppression du panier :', error);
   }
 };
 
