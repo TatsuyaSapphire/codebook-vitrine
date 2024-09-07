@@ -64,10 +64,29 @@ header .themeSelector .activeTheme{
 }
 
 /* CONTAINER */
+
+main h1, main h3, main .info-student, main h4 {
+  color: black
+}
+
+main.dark h1, main.dark h3, main.dark .info-student, main.dark h4, main.dark .card-title {
+  color: white
+}
+
+main p, main .info-student-job {
+  color: #6b7280 !important;
+}
+
+main.dark p, main.dark .info-student-job {
+  color: rgba(198, 199, 201, 0.75) !important;
+}
+
+main.dark figure, main.dark .card-body {
+  background-color: #1f2937;
+}
+
 .cardImg {
-
   height: 250px;
-
 }
 
 .card {
@@ -75,6 +94,7 @@ header .themeSelector .activeTheme{
   display: flex;
   flex-direction: column;
   width: 85%;
+  border: 1px solid rgba(92, 92, 92, 0.75) !important;
 }
 
 .card-body {
@@ -99,4 +119,81 @@ header .themeSelector .activeTheme{
   display: flex;
   justify-content: space-evenly;
   align-items: stretch; /* Aligne les éléments à la même hauteur */
+}
+
+figure, .accordion-container {
+  border: 1px solid rgba(92, 92, 92, 0.75) !important;
+}
+
+figcaption img {
+  width: 50px !important;
+  margin-right: 1em;
+}
+
+button.accordion-button.light:focus{
+  box-shadow: none;
+  outline: none; 
+  background-color: var(--background-light);
+  color: var(--text-dark);
+}
+
+button.accordion-button.light{
+  box-shadow: none;
+  outline: none; 
+  background-color: var(--background-light);
+  color: var(--text-dark);
+}
+
+button.accordion-button.dark:focus{
+  box-shadow: none;
+  outline: none; 
+  background-color: var(--background-dark);
+  color: var(--text-light);
+}
+
+button.accordion-button.dark{
+  box-shadow: none;
+  outline: none; 
+  background-color: var(--background-dark);
+  color: var(--text-light);
+}
+
+.burger-btn {
+  background-color: #f3f4f6;
+  color: black;
+  border: none;
+  font-size: 1.5em;
+}
+
+main.dark .burger-btn {
+  background-color: #4b5563;
+  color: white;
+}
+
+.container-cart {
+  display: flex;
+  flex-direction: column;
+  min-height: 60vh;
+}
+
+/* Footer */
+footer, footer a, footer small {
+  color: #6b7280;
+}
+
+footer.dark, footer.dark a {
+  background-color: #1f2937;
+  color: #9ca3af;
+}
+
+footer a {
+  text-decoration: none;
+}
+
+footer.dark a:hover {
+  text-decoration: underline;
+}
+
+footer.dark i:hover {
+  color: white;
 }

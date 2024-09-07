@@ -2,11 +2,13 @@ import React, { useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom'; // Pour récupérer les paramètres d'URL
 import { getProductById, addToCart } from '../data/api'; // Importer la fonction getProductById
 import Star from '../assets/etoile.png'
+import { useSelector } from 'react-redux';
 
 export const ProductDetail = () => {
     const { id } = useParams(); // Récupérer l'ID du produit depuis les paramètres d'URL
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
+    const theme = useSelector(state => state.themeState.theme);
 
     const handleAddToCart = (productId) => {
       if (!productId) {
@@ -49,18 +51,18 @@ export const ProductDetail = () => {
       };
 
     return (
-        <section>
+        <main className={`py-5 ${theme === 'light' ? 'light' : 'dark'}`}>
           <h1>{product.name}</h1>
-          <p className='fw-bold'> {product.overview} </p>
+          <p className='fw-bold mt-3'> {product.overview} </p>
           <div className='container'>
-            <div className='row mt-5'>
+            <div className='row my-5'>
               <div className='col'>
                 <img className='rounded mx-auto d-block' alt={product.name} src={product.poster}></img>
               </div>
               <div className='col text-start'>
                 <p className='fw-bold fs-3'> €{product.price} </p>
                 <p>{renderStars(product.rating)}</p>
-                <div className='mb-2'>
+                <div className='my-3'>
                   <span className='badge text-bg-light text-success fs-6 p-2'>{product.inStock ? 'En stock' : 'Rupture Stock'}</span>
                   {product.best_seller && (
                   <span className="badge text-bg-light text-warning fw-bold p-2 fs-6 mx-2">Bestseller</span> // Badge "Bestseller" si applicable
@@ -70,13 +72,12 @@ export const ProductDetail = () => {
                   )}
                 </div>
                 <div>
-                  <button onClick={() => handleAddToCart(product.id)} class="py-2 px-3 text-white fw-bold fs-6 btn btn-primary btn-sm rounded-lg mb-2">Add To Cart <i>+</i></button>
+                  <button onClick={() => handleAddToCart(product.id)} className="mb-5 py-2 px-3 text-white fw-bold fs-6 btn btn-primary btn-sm rounded-lg mb-2">Add To Cart <i>+</i></button>
                 </div>
                 <p className='fw-bold'> {product.long_description}</p>
               </div>
             </div>
           </div>
-          {/* Vous pouvez ajouter d'autres détails ici */}
-        </section>
+        </main>
       );
 }

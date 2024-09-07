@@ -6,6 +6,7 @@ import { AllRoutes } from './routes/AllRoutes';
 import {SearchBar} from './components/SearchBar';
 import { SearchProvider } from './components/SearchContext';
 import { AuthProvider } from './components/AuthVerif'; // Importer le contexte AuthProvider
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function App() {
   return (
@@ -21,6 +22,5 @@ function App() {
     </div>
   );
 }
-
 
 export default App;

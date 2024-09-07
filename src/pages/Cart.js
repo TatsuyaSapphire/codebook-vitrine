@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { db, auth } from '../firebase/server';
 import { collection, getDocs } from 'firebase/firestore';
+import { useSelector } from 'react-redux';
 
 export const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const user = auth.currentUser;
+  const theme = useSelector(state => state.themeState.theme);
 
   const imgStyle = {
     width: '14rem',
@@ -26,10 +28,6 @@ export const Cart = () => {
       fetchCartItems();
     }
   }, [user]);
-
-  if (!user) {
-    return <p>Veuillez vous connecter pour voir votre panier.</p>;
-  }
 
   return (
     <main className="mt-5">
