@@ -1,30 +1,32 @@
-// src/context/SearchContext.jsx
 import React, { createContext, useState, useContext } from 'react';
 
-// Crée le contexte
 const SearchContext = createContext();
 
-// Fournisseur du contexte
+export const useSearch = () => {
+  return useContext(SearchContext);
+};
+
 export const SearchProvider = ({ children }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
   const [showSearchBar, setShowSearchBar] = useState(false);
-  const toggleSearchBar = () => {
-    setShowSearchBar((prev) => !prev);
-  };
+
+  const openSearchBar = () => setShowSearchBar(true);
+  const closeSearchBar = () => setShowSearchBar(false);
 
   return (
-    <SearchContext.Provider value={{ showSearchBar, toggleSearchBar }}>
+    <SearchContext.Provider
+      value={{
+        searchTerm,
+        setSearchTerm,
+        searchResults,
+        setSearchResults,
+        showSearchBar,
+        openSearchBar,
+        closeSearchBar,
+      }}
+    >
       {children}
     </SearchContext.Provider>
   );
-};
-
-// Hook personnalisé pour utiliser le contexte
-export const useSearch = () => {
-  const context = useContext(SearchContext);
-
-  if (!context) {
-    throw new Error('useSearch must be used within a SearchProvider');
-  }
-
-  return context;
 };

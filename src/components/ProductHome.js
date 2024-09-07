@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { getFeaturedProducts, addToCart } from '../data/api';
+import { getFeaturedProducts, addToCart, removeFromCart } from '../data/api';
+import { db, auth} from '../firebase/server';
+import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 import Star from '../assets/etoile.png'
 import '../App.css';
@@ -8,14 +10,49 @@ import { useSelector } from 'react-redux';
 export const ProductHome = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [cartItems, setCartItems] = useState([]);
   const theme = useSelector(state => state.themeState.theme);
 
-  const handleAddToCart = (productId) => {
-    if (!productId) {
-      console.error('ID du produit manquant ou invalide.');
+  const fetchCartItems = async () => {
+    if (!auth.currentUser) {
+      console.log("Aucun utilisateur connecté trouvé.");
       return;
     }
-    addToCart(productId); // Appel de la fonction d'ajout avec l'ID spécifique du produit
+    try {
+      const cartRef = collection(db, `users/${auth.currentUser.uid}/cart`);
+      const cartSnapshot = await getDocs(cartRef);
+      const fetchedCartItems = cartSnapshot.docs.map(doc => doc.data().productId);
+      setCartItems(fetchedCartItems);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des articles du panier : ", error);
+    }
+  };
+
+  const handleCartAction = async (productId) => {
+    if (!productId) {
+      console.error('Erreur : ID du produit manquant ou produit invalide.', productId);
+      return;
+    }
+  
+    if (cartItems.includes(productId)) {
+      // Si le produit est déjà dans le panier, on le supprime
+      await removeFromCart(productId);
+      setCartItems(prevItems => prevItems.filter(id => id !== productId));
+    } else {
+      // Sinon, on récupère les détails du produit et on l'ajoute au panier
+      const productRef = doc(db, 'products', productId);
+      const productSnapshot = await getDoc(productRef);
+  
+      if (!productSnapshot.exists()) {
+        console.error("Erreur : Le produit n'existe pas dans la base de données.");
+        return;
+      }
+  
+      const productDetails = productSnapshot.data(); // Récupère les détails du produit
+  
+      await addToCart(productId, productDetails); // Ajoute au panier avec les détails du produit
+      setCartItems(prevItems => [...prevItems, productId]); // Met à jour l'état du panier
+    }
   };
 
 
@@ -31,8 +68,8 @@ export const ProductHome = () => {
         setLoading(false);
       }
     };
-
     fetchProducts();
+    fetchCartItems();
   }, []);
 
   const renderStars = (rating) => {
@@ -66,7 +103,9 @@ export const ProductHome = () => {
                                 </div>
                                 <div className='d-flex justify-content-between mt-4'>
                                     <p className='card-text text-start fw-bold fs-4'>${product.price}</p>
-                                    <button onClick={() => handleAddToCart(product.id)} className="py-2 px-3 text-white btn btn-primary btn-sm rounded-lg">Add To Cart <i>+</i></button>
+                                    <button className='btn btn-primary btn-sm rounded-lg' onClick={() => handleCartAction(product.id)}>
+                                    {cartItems.includes(product.id) ? 'Remove from Cart' : 'Add to Cart'}
+                                    </button>
                                 </div>
                             </div>
                         </div>

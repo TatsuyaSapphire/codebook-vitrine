@@ -36,6 +36,5 @@ export const SearchBar = () => {
           </form>
         </div>
       </main>
-      
     );
 };

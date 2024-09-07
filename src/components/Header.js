@@ -16,7 +16,7 @@ export const Header = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
-    const { toggleSearchBar } = useSearch();
+    const { openSearchBar } = useSearch();
     const theme = useSelector(state => state.themeState.theme);
 
     const handleRedirect = () => {
@@ -75,7 +75,7 @@ export const Header = () => {
                     <button className={`${theme === 'light' ? 'light' : 'dark'}`} onClick={toggleTheme}>
                         <i className={`bi ${theme === 'light' ? 'bi-moon-fill' : 'bi-brightness-high-fill'}`}></i>
                     </button>
-                    <button className={`${theme === 'light' ? 'light' : 'dark'}`} onClick={toggleSearchBar}>
+                    <button className={`${theme === 'light' ? 'light' : 'dark'}`} onClick={openSearchBar}>
                         <i className="fa-solid fa-magnifying-glass"></i>
                     </button>
                     <button className={`navbar-toggler ${theme === 'light' ? 'light' : 'dark'}`} type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
