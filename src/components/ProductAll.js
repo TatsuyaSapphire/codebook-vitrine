@@ -6,8 +6,38 @@ import '../App.css';
 
 export const AllProducts = () => {
   const [products, setProducts] = useState([]);
+  const [cartItems, setCartItems] = useState([]); // État pour stocker les produits dans le panier
   const [loading, setLoading] = useState(true);
-  const [cartItems, setCartItems] = useState([]);
+
+  // Fonction pour gérer l'ajout au panier
+  const handleAddToCart = async (productId) => {
+    if (!productId) {
+      console.error('ID du produit manquant ou invalide.');
+      return;
+    }
+    await addToCart(productId); // Appel de la fonction d'ajout avec l'ID spécifique du produit
+    fetchCartItems(); // Mettre à jour la liste des articles du panier après l'ajout
+  };
+
+  // Fonction pour gérer la suppression du panier
+  const handleRemoveFromCart = async (productId) => {
+    if (!productId) {
+      console.error('ID du produit manquant ou invalide.');
+      return;
+    }
+    await removeFromCart(productId); // Appel de la fonction de suppression avec l'ID spécifique du produit
+    fetchCartItems(); // Mettre à jour la liste des articles du panier après la suppression
+  };
+
+  // Fonction pour récupérer les produits du panier
+  const fetchCartItems = async () => {
+    try {
+      const items = await getCartItems(); // Récupère les articles du panier depuis Firebase
+      setCartItems(items.map(item => item.id)); // Stocke uniquement les ID des produits pour vérification
+    } catch (error) {
+      console.error('Erreur lors de la récupération des articles du panier :', error);
+    }
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -21,37 +51,13 @@ export const AllProducts = () => {
       }
     };
 
-    const fetchCartItems = async () => {
-      try {
-        const cartData = await getCartItems();
-        setCartItems(cartData.map(item => item.id)); // Stocke seulement les IDs des produits dans le panier
-      } catch (error) {
-        console.error('Erreur lors de la récupération des articles du panier:', error);
-      }
-    };
-
     fetchProducts();
     fetchCartItems();
   }, []);
 
-  const handleAddToCart = (productId) => {
-    if (!productId) {
-      console.error('ID du produit manquant ou invalide.');
-      return;
-    }
-    addToCart(productId);
-  };
-
-  const handleRemoveFromCart = (productId) => {
-    if (!productId) {
-      console.error('ID du produit manquant ou invalide.');
-      return;
-    }
-    removeFromCart(productId);
-  };
-
   const renderStars = (rating) => {
     const stars = [];
+    // Boucle pour afficher le nombre d'étoiles en fonction du rating
     for (let i = 0; i < rating; i++) {
       stars.push(<img src={Star} alt="star" key={i} style={{ width: 20, height: 20 }} />);
     }
@@ -71,7 +77,7 @@ export const AllProducts = () => {
             <div className='col-4 mt-5' key={product.id}>
               <div className='card'>
                 <Link to={`/product/${product.id}`}>
-                  <img src={product.poster} className='card-img-top cardImg' alt='product-img' />
+                  <img src={product.poster} className='card-img-top cardImg' alt='product-img'></img>
                 </Link>
                 <div className='card-body cardBody'>
                   <h5 className='card-title fw-bold fs-4 text-start cardTitle'>{product.name}</h5>
@@ -84,14 +90,14 @@ export const AllProducts = () => {
                     {cartItems.includes(product.id) ? (
                       <button
                         onClick={() => handleRemoveFromCart(product.id)}
-                        className='py-2 px-3 text-white btn btn-danger btn-sm rounded-lg'
+                        className="py-2 px-3 text-white btn btn-danger btn-sm rounded-lg"
                       >
-                        Remove From Cart <i>-</i>
+                        Remove From Cart
                       </button>
                     ) : (
                       <button
                         onClick={() => handleAddToCart(product.id)}
-                        className='py-2 px-3 text-white btn btn-primary btn-sm rounded-lg'
+                        className="py-2 px-3 text-white btn btn-primary btn-sm rounded-lg"
                       >
                         Add To Cart <i>+</i>
                       </button>

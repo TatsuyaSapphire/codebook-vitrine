@@ -7,7 +7,6 @@ import {SearchBar} from './components/SearchBar';
 import { SearchProvider } from './components/SearchContext';
 import { AuthProvider } from './components/AuthVerif'; // Importer le contexte AuthProvider
 
-
 function App() {
   return (
     <div className="App">

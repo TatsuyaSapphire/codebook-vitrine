@@ -6,6 +6,10 @@ export const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const user = auth.currentUser;
 
+  const imgStyle = {
+    width: '14rem',
+  }
+
   useEffect(() => {
     if (user) {
       const fetchCartItems = async () => {
@@ -28,20 +32,36 @@ export const Cart = () => {
   }
 
   return (
-    <div className="container mt-5">
-      <h2>Votre Panier</h2>
+    <main className="mt-5">
+      <h2 className='text-decoration-underline'>Votre Panier</h2>
       {cartItems.length === 0 ? (
         <p>Votre panier est vide.</p>
       ) : (
-        <ul className="list-group">
+        <section className="container">
           {cartItems.map(item => (
-            <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center">
-              {item.name}
-              <span>{item.price} €</span>
-            </li>
+            <div key={item.id} className="d-flex d-flex-row flex-wrap justify-content-between border-bottom m-auto p-2 mb-5">
+              <div className='d-flex'>
+                <img className=' ml-2 rounded' style={imgStyle}  alt={item.name} src={item.poster}></img>
+                <div className=''>
+                  <a>
+                    <p className='ms-2'>{item.name}</p>
+                  </a>
+                  <span className=' text-danger text-decoration-none'>Remove</span>
+                </div>
+              </div>
+              <div>
+                <span className='fs-5'>{item.price} €</span>
+              </div>
+            </div>
           ))}
-        </ul>
+          <div>
+            <p className='border-bottom fw-bold fs-4 text-start mt-5'>Total Amount:</p>
+          </div>
+
+            <div className='modal-dialog modal-lg'>Place Order</div>
+
+        </section>
       )}
-    </div>
+    </main>
   );
 };
