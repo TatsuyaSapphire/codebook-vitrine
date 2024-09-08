@@ -22,6 +22,10 @@ export const Header = () => {
         navigate('/products'); // Redirige vers la liste des produits
     };
 
+    const handleRedirectToOrderHistory = () => {
+        navigate('/order-history'); // Redirection vers la page des commandes
+      };
+
     const toggleSearchBar = () => {
         setShowSearchBar((prev) => !prev);  // Inverser l'état d'affichage de la barre de recherche
     };
@@ -102,6 +106,9 @@ export const Header = () => {
                             )}
                             <li className="dropdown-item" type="button" onClick={handleRedirect}>
                                 All eBooks
+                            </li>
+                            <li className="dropdown-item" type="button" onClick={handleRedirectToOrderHistory}>
+                                Order History
                             </li>
                         </ul>
                     </div>
