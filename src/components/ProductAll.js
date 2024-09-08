@@ -4,8 +4,13 @@ import { Link } from 'react-router-dom';
 import Star from '../assets/etoile.png';
 import '../App.css';
 import { useSelector } from 'react-redux';
+import { useTitle } from '../hooks/useTitle'
+
 
 export const AllProducts = () => {
+
+  useTitle('Products');
+
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cartItems, setCartItems] = useState([]);

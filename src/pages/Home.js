@@ -2,9 +2,12 @@ import React from 'react';
 import { ProductHome } from '../components/ProductHome';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useTitle } from '../hooks/useTitle'
 
 
 export const Home =() =>{
+
+  useTitle('Home');
 
   const navigate = useNavigate();
   const theme = useSelector(state => state.themeState.theme);

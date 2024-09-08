@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { db, auth } from '../firebase/server';
 import { collection, getDocs } from 'firebase/firestore';
 import { useSelector } from 'react-redux';
+import { useTitle } from '../hooks/useTitle'
 
 export const Cart = () => {
+
+  useTitle('Cart');
+
   const [cartItems, setCartItems] = useState([]);
   const user = auth.currentUser;
   const theme = useSelector(state => state.themeState.theme);
