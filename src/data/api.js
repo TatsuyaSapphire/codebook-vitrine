@@ -7,19 +7,16 @@ export const searchProducts = async (searchTerm) => {
     const productsCollection = collection(db, 'products');
     const q = query(productsCollection, where('name', '>=', searchTerm), where('name', '<=', searchTerm + '\uf8ff'));
     const snapshot = await getDocs(q);
-    
     const products = snapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data()
     }));
-
     return products;
   } catch (error) {
-    console.error('Erreur lors de la recherche des produits:', error);
+    console.error('Erreur de recherche des produits:', error);
     return [];
   }
 };
-
 // Fonction pour récupérer tous les produits
 export const getAllProducts = async () => {
   try {
