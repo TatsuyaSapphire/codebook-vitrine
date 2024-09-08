@@ -3,9 +3,8 @@ import React from 'react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { AllRoutes } from './routes/AllRoutes';
-import {SearchBar} from './components/SearchBar';
-import { SearchProvider } from './components/SearchContext';
 import { AuthProvider } from './components/AuthVerif'; // Importer le contexte AuthProvider
+import { SearchProvider } from './components/SearchContext';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function App() {
@@ -13,10 +12,9 @@ function App() {
     <div className="App">
       <AuthProvider>
         <SearchProvider>
-          <Header/>
-          <SearchBar/>
-          <AllRoutes/>
-          <Footer/>
+            <Header/>
+            <AllRoutes/>
+            <Footer/>
         </SearchProvider>
       </AuthProvider>
     </div>

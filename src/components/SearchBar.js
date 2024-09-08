@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSearch } from '../components/SearchContext';
+import { useSearch } from './SearchContext';
 import { useSelector } from 'react-redux';
 
 
@@ -16,6 +16,10 @@ export const SearchBar = () => {
         navigate(`/search?query=${searchTerm}`);
       }
     };
+
+    if (!showSearchBar) {
+      return null;
+  }
 
 
     return (

@@ -1,6 +1,25 @@
 import { collection, getDocs, doc , getDoc, addDoc, writeBatch , query, where} from 'firebase/firestore';
 import { db, auth } from '../firebase/server'; // Assurez-vous que le chemin est correct
 
+
+export const searchProducts = async (searchTerm) => {
+  try {
+    const productsCollection = collection(db, 'products');
+    const q = query(productsCollection, where('name', '>=', searchTerm), where('name', '<=', searchTerm + '\uf8ff'));
+    const snapshot = await getDocs(q);
+    
+    const products = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+
+    return products;
+  } catch (error) {
+    console.error('Erreur lors de la recherche des produits:', error);
+    return [];
+  }
+};
+
 // Fonction pour récupérer tous les produits
 export const getAllProducts = async () => {
   try {
