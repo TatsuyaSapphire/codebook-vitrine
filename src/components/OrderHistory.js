@@ -52,10 +52,10 @@ export const OrderHistory = () => {
   }
 
   return (
-    <main className={`py-5 ${theme === 'light' ? 'light' : 'dark'}`}> {/* Appliquer la classe de thème */}
-        <h1 className="mt-5 text-decoration-underline fw-bold">Historique des commandes</h1>
+    <main className={`py-5 main-order-history ${theme === 'light' ? 'light' : 'dark'}`}> {/* Appliquer la classe de thème */}
+        <h1 className="mt-3 text-decoration-underline fw-bold">Historique des commandes</h1>
       {orders.length === 0 ? (
-        <p>Vous n'avez pas encore passé de commande.</p>
+        <p className="mt-5">Vous n'avez pas encore passé de commande.</p>
       ) : (
         <div className={`container py-5 list-group ${theme === 'light' ? 'light' : 'dark'}`}>
           {orders.map((order, index) => (

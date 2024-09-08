@@ -124,7 +124,7 @@ export const AllProducts = () => {
   }
 
   return (
-    <main className={`pt-3 pb-5 ps-5 ${theme === 'light' ? 'light' : 'dark'}`}>
+    <main className={`pt-5 pb-5 ps-5 ${theme === 'light' ? 'light' : 'dark'}`}>
       <section className="container d-flex flex-column w-75 mx-auto">
         <div className="d-flex justify-content-between align-items-center">
           <h4 className='link-underline-primarys fw-bold'>All eBooks({filteredProducts.length})</h4>

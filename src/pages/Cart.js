@@ -47,7 +47,7 @@ export const Cart = () => {
   return (
     <main className={`py-5 ${theme === 'light' ? 'light' : 'dark'}`}>
         <div className='container-cart'>
-        <h2 className="text-decoration-underline mb-5">Votre Panier</h2>
+        <h1 className="text-decoration-underline mb-5">Votre Panier</h1>
         {cartItems.length === 0 ? (
           <p>Votre panier est vide.</p>
         ) : (

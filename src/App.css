@@ -121,6 +121,10 @@ main.dark figure, main.dark .card-body {
   align-items: stretch; /* Aligne les éléments à la même hauteur */
 }
 
+.main-order-history {
+  min-height: 85vh;
+}
+
 figure, .accordion-container {
   border: 1px solid rgba(92, 92, 92, 0.75) !important;
 }
