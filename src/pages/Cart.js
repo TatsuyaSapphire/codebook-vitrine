@@ -42,46 +42,48 @@ export const Cart = () => {
 
   return (
     <main className={`py-5 ${theme === 'light' ? 'light' : 'dark'}`}>
-      <h2 className="text-decoration-underline mb-5">Votre Panier</h2>
-      {cartItems.length === 0 ? (
-        <p>Votre panier est vide.</p>
-      ) : (
-        <section className="container">
-          {cartItems.map(item => (
-            <div key={item.id} className="d-flex flex-wrap justify-content-between border-bottom mb-5 p-2">
-              <div className="d-flex align-items-center">
-                <img className="ml-2 rounded" style={imgStyle} alt={item.name} src={item.poster} />
-                <div className="ms-2">
-                  <p className="mb-1">{item.name}</p>
-                  <span
-                    className="text-danger"
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => handleRemoveFromCart(item.productId)}
-                  >
-                    Remove
-                  </span>
+        <div className='container-cart'>
+        <h2 className="text-decoration-underline mb-5">Votre Panier</h2>
+        {cartItems.length === 0 ? (
+          <p>Votre panier est vide.</p>
+        ) : (
+          <section className="container">
+            {cartItems.map(item => (
+              <div key={item.id} className="d-flex flex-wrap justify-content-between border-bottom mb-5 p-2">
+                <div className="d-flex align-items-center">
+                  <img className="ml-2 rounded" style={imgStyle} alt={item.name} src={item.poster} />
+                  <div className="ms-2">
+                    <p className="mb-1">{item.name}</p>
+                    <span
+                      className="text-danger"
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => handleRemoveFromCart(item.productId)}
+                    >
+                      Remove
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <span className="fs-5">{item.price} €</span>
                 </div>
               </div>
-              <div>
-                <span className="fs-5">{item.price} €</span>
-              </div>
+            ))}
+            <div className="mt-5">
+              <p className="fw-bold fs-4">Total Amount: {totalPrice.toFixed(2)} €</p>
+              <button className="btn btn-primary" onClick={() => setShowPaymentModal(true)}>Passer la commande</button>
             </div>
-          ))}
-          <div className="mt-5">
-            <p className="fw-bold fs-4">Total Amount: {totalPrice.toFixed(2)} €</p>
-            <button className="btn btn-primary" onClick={() => setShowPaymentModal(true)}>Passer la commande</button>
-          </div>
-        </section>
-      )}
+          </section>
+        )}
 
-      {/* Affichage du modal de paiement */}
-      <PaymentModal
-        show={showPaymentModal}
-        handleClose={() => setShowPaymentModal(false)}
-        cartItems={cartItems}
-        totalPrice={totalPrice}
-        clearCart={clearCart} // Passer la fonction clearCart au modal
-      />
+        {/* Affichage du modal de paiement */}
+        <PaymentModal
+          show={showPaymentModal}
+          handleClose={() => setShowPaymentModal(false)}
+          cartItems={cartItems}
+          totalPrice={totalPrice}
+          clearCart={clearCart} // Passer la fonction clearCart au modal
+        />
+      </div>
     </main>
   );
 };
