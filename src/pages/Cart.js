@@ -1,60 +1,93 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { db, auth } from '../firebase/server';
 import { collection, getDocs } from 'firebase/firestore';
 import { useSelector } from 'react-redux';
 import { useTitle } from '../hooks/useTitle'
+import { removeFromCart } from '../data/api';
+import {PaymentModal} from '../components/PaymentModal'; // Importer le modal
 
 export const Cart = () => {
 
   useTitle('Cart');
 
   const [cartItems, setCartItems] = useState([]);
+  const [showPaymentModal, setShowPaymentModal] = useState(false); // État pour gérer l'ouverture du modal
   const user = auth.currentUser;
   const theme = useSelector(state => state.themeState.theme);
 
-  useEffect(() => {
-    if (user) {
-      const fetchCartItems = async () => {
-        try {
-          const cartRef = collection(db, 'users', user.uid, 'cart');
-          const cartSnapshot = await getDocs(cartRef);
-          const items = cartSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-          setCartItems(items);
-        } catch (error) {
-          console.error("Erreur lors de la récupération du panier : ", error);
-        }
-      };
+  const imgStyle = { width: '14rem' };
 
-      fetchCartItems();
+  const totalPrice = cartItems.reduce((acc, item) => acc + parseFloat(item.price), 0);
+
+  const handleRemoveFromCart = async (productId) => {
+    await removeFromCart(productId);
+    setCartItems(prevItems => prevItems.filter(item => item.productId !== productId));
+  };
+
+  const fetchCartItems = async () => {
+    if (!user) return;
+    try {
+      const cartRef = collection(db, `users/${user.uid}/cart`);
+      const cartSnapshot = await getDocs(cartRef);
+      setCartItems(cartSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+    } catch (error) {
+      console.error("Error fetching cart items:", error);
     }
+  };
+
+  // Fonction pour vider le panier localement
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
+  useEffect(() => {
+    fetchCartItems();
   }, [user]);
 
   return (
     <main className={`py-5 ${theme === 'light' ? 'light' : 'dark'}`}>
-      <div className="container my-5 h-100 container-cart">
-        {user ? (
-          <>
-            <h3>Votre Panier</h3>
-            {cartItems.length === 0 ? (
-              <p>Votre panier est vide.</p>
-            ) : (
-              <ul className="list-group">
-                {cartItems.map(item => (
-                  <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center">
-                    {item.name}
-                    <span>{item.price} €</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </>
-        ) : ( 
-          <>
-            <h1>Veuillez vous connecter pour voir votre panier.</h1>
-          </>
+        <div className='container-cart'>
+        <h2 className="text-decoration-underline mb-5">Votre Panier</h2>
+        {cartItems.length === 0 ? (
+          <p>Votre panier est vide.</p>
+        ) : (
+          <section className="container">
+            {cartItems.map(item => (
+              <div key={item.id} className="d-flex flex-wrap justify-content-between border-bottom mb-5 p-2">
+                <div className="d-flex align-items-center">
+                  <img className="ml-2 rounded" style={imgStyle} alt={item.name} src={item.poster} />
+                  <div className="ms-2">
+                    <p className="mb-1">{item.name}</p>
+                    <span
+                      className="text-danger"
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => handleRemoveFromCart(item.productId)}
+                    >
+                      Remove
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <span className="fs-5">{item.price} €</span>
+                </div>
+              </div>
+            ))}
+            <div className="mt-5">
+              <p className="fw-bold fs-4">Total Amount: {totalPrice.toFixed(2)} €</p>
+              <button className="btn btn-primary" onClick={() => setShowPaymentModal(true)}>Passer la commande</button>
+            </div>
+          </section>
         )}
+
+        {/* Affichage du modal de paiement */}
+        <PaymentModal
+          show={showPaymentModal}
+          handleClose={() => setShowPaymentModal(false)}
+          cartItems={cartItems}
+          totalPrice={totalPrice}
+          clearCart={clearCart} // Passer la fonction clearCart au modal
+        />
       </div>
     </main>
-    
   );
 };

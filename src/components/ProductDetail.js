@@ -1,23 +1,39 @@
 import React, { useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom'; // Pour récupérer les paramètres d'URL
-import { getProductById, addToCart } from '../data/api'; // Importer la fonction getProductById
+import { getProductById, addToCart, getCartItems, removeFromCart } from '../data/api'; // Importer la fonction getProductById
 import Star from '../assets/etoile.png'
 import { useSelector } from 'react-redux';
 
 export const ProductDetail = () => {
     const { id } = useParams(); // Récupérer l'ID du produit depuis les paramètres d'URL
     const [product, setProduct] = useState(null);
+    const [cartItems, setCartItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const theme = useSelector(state => state.themeState.theme);
 
-    const handleAddToCart = (productId) => {
-      if (!productId) {
-        console.error('ID du produit manquant ou invalide.');
-        return;
+    const fetchCartItems = async () => {
+      try {
+        const items = await getCartItems();
+        setCartItems(items.map((item) => item.id));
+      } catch (error) {
+        console.error('Erreur lors de la récupération des articles du panier :', error);
       }
-      addToCart(productId); // Appel de la fonction d'ajout avec l'ID spécifique du produit
     };
 
+    const handleCartAction = async (product) => {
+      if (!product || !product.id) {
+        console.error('Erreur : ID du produit manquant ou produit invalide.', product);
+        return;
+      }
+  
+      if (cartItems.includes(product.id)) {
+        await removeFromCart(product.id);
+        setCartItems(cartItems.filter((id) => id !== product.id));
+      } else {
+        await addToCart(product.id);
+        setCartItems([...cartItems, product.id]);
+      }
+    };
     useEffect(() => {
         const fetchProduct = async () => {
           try {
@@ -31,6 +47,7 @@ export const ProductDetail = () => {
         };
 
         fetchProduct();
+        fetchCartItems();
       }, [id]);
 
       if (loading) {
@@ -72,7 +89,9 @@ export const ProductDetail = () => {
                   )}
                 </div>
                 <div>
-                  <button onClick={() => handleAddToCart(product.id)} className="mb-5 py-2 px-3 text-white fw-bold fs-6 btn btn-primary btn-sm rounded-lg mb-2">Add To Cart <i>+</i></button>
+                <button className='btn btn-primary btn-sm rounded-lg' onClick={() => handleCartAction(product)}>
+                  {cartItems.includes(product.id) ? 'Remove from Cart' : 'Add to Cart'}
+                </button>
                 </div>
                 <p className='fw-bold'> {product.long_description}</p>
               </div>

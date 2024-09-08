@@ -1,5 +1,24 @@
-import { collection, getDocs, doc, setDoc , getDoc, addDoc, updateDoc, arrayRemove } from 'firebase/firestore';
+import { collection, getDocs, doc , getDoc, addDoc, writeBatch , query, where} from 'firebase/firestore';
 import { db, auth } from '../firebase/server'; // Assurez-vous que le chemin est correct
+
+
+export const searchProducts = async (searchTerm) => {
+  try {
+    const productsCollection = collection(db, 'products');
+    const q = query(productsCollection, where('name', '>=', searchTerm), where('name', '<=', searchTerm + '\uf8ff'));
+    const snapshot = await getDocs(q);
+    
+    const products = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+
+    return products;
+  } catch (error) {
+    console.error('Erreur lors de la recherche des produits:', error);
+    return [];
+  }
+};
 
 // Fonction pour récupérer tous les produits
 export const getAllProducts = async () => {
@@ -50,6 +69,7 @@ export const getProductById = async (id) => {
   }
 };
 
+
 export const addToCart = async (productId) => {
   if (!productId) {
     console.error("Erreur : ID du produit manquant.");
@@ -57,62 +77,67 @@ export const addToCart = async (productId) => {
   }
 
   try {
-    // Récupérer le produit depuis Firebase pour s'assurer qu'il existe
+    // Vérifiez que l'utilisateur est connecté
+    if (!auth.currentUser) {
+      console.error("Erreur : L'utilisateur doit être connecté.");
+      return;
+    }
+
+    // Récupérer les détails du produit depuis la collection "products" dans Firestore
     const productRef = doc(db, 'products', productId);
     const productSnapshot = await getDoc(productRef);
 
     if (!productSnapshot.exists()) {
-      console.error("Le produit n'existe pas.");
+      console.error("Erreur : Le produit n'existe pas.");
       return;
     }
 
-    const productData = productSnapshot.data();
+    const productDetails = productSnapshot.data(); // Récupérer les données du produit
 
-    // Ajouter le produit au panier de l'utilisateur
+    // Référence au panier de l'utilisateur dans Firestore
     const cartRef = collection(db, `users/${auth.currentUser.uid}/cart`);
-    await addDoc(cartRef, {
-      ...productData,
-      id: productId,
+
+    // Ajouter le produit au panier avec tous ses détails
+    const docRef = await addDoc(cartRef, {
+      productId: productId,
+      ...productDetails, // Ajouter toutes les informations du produit récupéré
+      quantity: 1  // Par défaut, ajouter avec quantité 1
     });
 
-    console.log('Produit ajouté au panier avec succès');
+    console.log('Produit ajouté au panier avec succès. Document ID:', docRef.id);
+    return docRef.id; // Retourner l'ID du document pour une utilisation ultérieure si nécessaire
   } catch (error) {
     console.error('Erreur lors de l\'ajout au panier :', error);
+    return null;
   }
 };
 
 export const removeFromCart = async (productId) => {
-  if (!auth.currentUser) {
-    console.error('Utilisateur non connecté. Veuillez vous connecter pour modifier votre panier.');
+  console.log("Tentative de suppression du produit ID:", productId);
+  if (!productId) {
+    console.error("Erreur : ID du produit manquant.");
     return;
   }
 
-  try {
-    // Référence à la collection des utilisateurs
-    const userDocRef = doc(db, 'users', auth.currentUser.uid);
-    
-    // Référence au document "cartItems" du panier
-    const cartDocRef = doc(userDocRef, 'cartItems', 'items');
+  if (!auth.currentUser) {
+    console.error("Erreur : Utilisateur non connecté.");
+    return;
+  }
 
-    // Vérifiez si le document "cartItems" existe
-    const cartDocSnapshot = await getDoc(cartDocRef);
+  const cartRef = collection(db, `users/${auth.currentUser.uid}/cart`);
+  const q = query(cartRef, where('productId', '==', productId));
+  const querySnapshot = await getDocs(q);
 
-    if (cartDocSnapshot.exists()) {
-      // Document existe, mettre à jour en retirant le produit
-      await updateDoc(cartDocRef, {
-        items: arrayRemove(productId)
-      });
-    } else {
-      // Document n'existe pas, créer un nouveau document avec un tableau vide
-      await setDoc(cartDocRef, {
-        items: [] // Crée un document avec un tableau vide si le document n'existe pas
-      });
-      console.log('Panier initialisé. Aucun produit trouvé à supprimer.');
-    }
-
-    console.log('Produit supprimé du panier avec succès');
-  } catch (error) {
-    console.error('Erreur lors de la suppression du produit du panier :', error);
+  if (!querySnapshot.empty) {
+    const batch = writeBatch(db);
+    querySnapshot.forEach((doc) => {
+      console.log("Suppression du document ID:", doc.id);  // Ajout de log pour débogage
+      batch.delete(doc.ref);
+    });
+    await batch.commit();
+    console.log('Produit retiré du panier avec succès');
+  } else {
+    console.error("Le produit n'est pas dans le panier.");
   }
 };
 

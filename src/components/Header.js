@@ -1,26 +1,33 @@
-import React, { useEffect, useState }from 'react';
-import {NavLink} from 'react-router-dom';
-import { useSearch } from '../components/SearchContext';
+import React, { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import logo from '../assets/logo.png'
-import '../index.css';
-import './Header.css';
-import { useSelector, useDispatch} from 'react-redux';
+import { useSearch } from '../components/SearchContext';
+import { useSelector, useDispatch } from 'react-redux';
 import { update } from './../store/themeSlice';
 import { signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from 'firebase/auth';
 import { auth } from './../firebase/server.js';
-
+import { SearchBar } from './SearchBar';
+import logo from '../assets/logo.png';
+import '../index.css';
+import './Header.css';
 
 export const Header = () => {
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
-    const { toggleSearchBar } = useSearch();
-    const theme = useSelector(state => state.themeState.theme);
+    const { showSearchBar, setShowSearchBar } = useSearch(); // Correction ici
+    const theme = useSelector((state) => state.themeState.theme);
 
     const handleRedirect = () => {
-      navigate('/products'); // Redirige vers la liste des produits
+        navigate('/products'); // Redirige vers la liste des produits
+    };
+
+    const handleRedirectToOrderHistory = () => {
+        navigate('/order-history'); // Redirection vers la page des commandes
+      };
+
+    const toggleSearchBar = () => {
+        setShowSearchBar((prev) => !prev);  // Inverser l'état d'affichage de la barre de recherche
     };
 
     const toggleTheme = () => {
@@ -32,43 +39,42 @@ export const Header = () => {
     const login = async () => {
         const provider = new GoogleAuthProvider();
         try {
-          await signInWithPopup(auth, provider);
-          navigate('/');
+            await signInWithPopup(auth, provider);
+            navigate('/');
         } catch (error) {
-          console.error("Erreur de connexion : ", error);
+            console.error('Erreur de connexion : ', error);
         }
     };
 
     // Fonction pour se déconnecter
     const logout = async () => {
         try {
-            console.log("logout");
-        await signOut(auth);
-        navigate('/');
+            await signOut(auth);
+            navigate('/');
         } catch (error) {
-        console.error("Erreur de déconnexion : ", error);
+            console.error('Erreur de déconnexion : ', error);
         }
     };
 
     // Surveillance des changements d'état d'authentification
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser);
+            setUser(currentUser);
         });
         // Nettoyage de l'abonnement à l'événement lors du démontage du composant
         return () => unsubscribe();
     }, []);
 
     const logoStyle = {
-      width: '3rem',
-      height:'3rem'
-    }
+        width: '3rem',
+        height: '3rem',
+    };
 
     return (
         <header className={`my-0 ${theme === 'light' ? 'light' : 'dark'}`}>
             <nav className="container navbar navbar-expand-lg navbar-dark d-flex justify-content-between w-75 px-0">
-                <NavLink to='/' className='navbar-brand d-flex align-items-center'>
-                    <img src={logo} style={logoStyle} alt='logo'></img>
+                <NavLink to="/" className="navbar-brand d-flex align-items-center">
+                    <img src={logo} style={logoStyle} alt="logo"></img>
                     CodeBook
                 </NavLink>
                 <div className="d-flex">
@@ -90,15 +96,25 @@ export const Header = () => {
                         </button>
                         <ul className="dropdown-menu">
                             {user ? (
-                                <li className='dropdown-item' type="button" onClick={logout}>Logout</li>
+                                <li className="dropdown-item" type="button" onClick={logout}>
+                                    Logout
+                                </li>
                             ) : (
-                                <li className="dropdown-item" type="button" onClick={login}>Login</li>
+                                <li className="dropdown-item" type="button" onClick={login}>
+                                    Login
+                                </li>
                             )}
-                                <li className="dropdown-item" type="button" onClick={handleRedirect}>All eBooks</li>
+                            <li className="dropdown-item" type="button" onClick={handleRedirect}>
+                                All eBooks
+                            </li>
+                            <li className="dropdown-item" type="button" onClick={handleRedirectToOrderHistory}>
+                                Order History
+                            </li>
                         </ul>
                     </div>
                 </div>
-              </nav>
+            </nav>
+            <SearchBar />
         </header>
     );
 };

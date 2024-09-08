@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAllProducts, addToCart, removeFromCart, getCartItems } from '../data/api';
+import { getAllProducts, addToCart, removeFromCart, getCartItems} from '../data/api';
 import { Link } from 'react-router-dom';
 import Star from '../assets/etoile.png';
 import '../App.css';
@@ -12,8 +12,18 @@ export const AllProducts = () => {
   useTitle('Products');
 
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [cartItems, setCartItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fonction pour récupérer les produits du panier
+  const fetchCartItems = async () => {
+    try {
+      const items = await getCartItems();
+      setCartItems(items.map((item) => item.id));
+    } catch (error) {
+      console.error('Erreur lors de la récupération des articles du panier :', error);
+    }
+  };
   const theme = useSelector(state => state.themeState.theme);
   const [filterDisplay, setFilterDisplay] = useState(false);
 
@@ -35,15 +45,6 @@ export const AllProducts = () => {
       }
     };
 
-    const fetchCartItems = async () => {
-      try {
-        const cartData = await getCartItems();
-        setCartItems(cartData.map(item => item.id)); // Stocke seulement les IDs des produits dans le panier
-      } catch (error) {
-        console.error('Erreur lors de la récupération des articles du panier:', error);
-      }
-    };
-
     fetchProducts();
     fetchCartItems();
   }, []);
@@ -62,20 +63,20 @@ export const AllProducts = () => {
     setInStockOnly(false);
   };
 
-  const handleAddToCart = (productId) => {
-    if (!productId) {
-      console.error('ID du produit manquant ou invalide.');
-      return;
-    }
-    addToCart(productId);
-  };
 
-  const handleRemoveFromCart = (productId) => {
-    if (!productId) {
-      console.error('ID du produit manquant ou invalide.');
+  const handleCartAction = async (product) => {
+    if (!product || !product.id) {
+      console.error('Erreur : ID du produit manquant ou produit invalide.', product);
       return;
     }
-    removeFromCart(productId);
+
+    if (cartItems.includes(product.id)) {
+      await removeFromCart(product.id);
+      setCartItems(cartItems.filter((id) => id !== product.id));
+    } else {
+      await addToCart(product.id);
+      setCartItems([...cartItems, product.id]);
+    }
   };
 
   const renderStars = (rating) => {
@@ -147,21 +148,9 @@ export const AllProducts = () => {
                     </div>
                     <div className='d-flex justify-content-between mt-4'>
                       <p className='card-text text-start fw-bold fs-4'>${product.price}</p>
-                      {cartItems.includes(product.id) ? (
-                        <button
-                          onClick={() => handleRemoveFromCart(product.id)}
-                          className='text-white btn btn-danger btn-sm rounded-lg fw-bold'
-                        >
-                          Remove From Cart <i>-</i>
-                        </button>
-                      ) : (
-                        <button
-                          onClick={() => handleAddToCart(product.id)}
-                          className='text-white btn btn-primary btn-sm rounded-lg fw-bold'
-                        >
-                          Add To Cart <i>+</i>
-                        </button>
-                      )}
+                      <button className='btn btn-primary btn-sm rounded-lg' onClick={() => handleCartAction(product)}>
+                      {cartItems.includes(product.id) ? 'Remove from Cart' : 'Add to Cart'}
+                      </button>
                     </div>
                   </div>
                 </div>
