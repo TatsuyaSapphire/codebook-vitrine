@@ -6,6 +6,7 @@ import '../App.css';
 import { useSelector } from 'react-redux';
 import { useTitle } from '../hooks/useTitle'
 import { auth } from '../firebase/server';
+import './Product.css'
 
 
 export const AllProducts = () => {
@@ -137,25 +138,24 @@ export const AllProducts = () => {
   }
 
   return (
-    <main className={`pt-5 pb-5 ps-5 ${theme === 'light' ? 'light' : 'dark'}`}>
-      <section className="container d-flex flex-column w-75 mx-auto">
+    <main className={`d-flex flex-column pt-5 pb-5 align-items-center ${theme === 'light' ? 'light' : 'dark'}`}>
+      <section className="container d-flex flex-column w-75 mx-auto" id="products-section">
         <div className="d-flex justify-content-between align-items-center">
           <h4 className='link-underline-primarys fw-bold'>All eBooks({filteredProducts.length})</h4>
-          <button className={`burger-btn rounded me-5 ${theme === 'light' ? 'light' : 'dark'}`} onClick={toggleFilterDisplay}>
+          <button className={`burger-btn rounded ${theme === 'light' ? 'light' : 'dark'}`} onClick={toggleFilterDisplay}>
             <i className="bi bi-three-dots-vertical"></i>
           </button>
         </div>
-        <div className='cardContainer'>
-          <div className='row ps-3'>
+        <div className='card-Container w-100 mt-5'>
             {filteredProducts.map((product) => (
-              <div className='col-lg-4 col-md-6 mt-5' key={product.id}>
-                <div className='card'>
+
+                <div className='card' key={product.id}>
                   <Link to={`/product/${product.id}`}>
                     <img src={product.poster} className='card-img-top cardImg' alt='product-img' />
                   </Link>
                   <div className='card-body cardBody'>
                     <h5 className='card-title fw-bold fs-4 text-start cardTitle'>{product.name}</h5>
-                    <p className='card-text text-start cardDescription'>{product.overview}</p>
+                    <p className='card-text text-start cardDescription mt-1'>{product.overview}</p>
                     <div style={{ display: 'flex', color: '#FFD700' }}>
                       {renderStars(product.rating)}
                     </div>
@@ -174,9 +174,9 @@ export const AllProducts = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+
             ))}
-          </div>
+
         </div>
       </section>
       <section className={`filter px-2 d-flex flex-column ${theme === 'light' ? 'light' : 'dark'} ${filterDisplay ? 'filterVisible' : 'filterInvisible'}`}>

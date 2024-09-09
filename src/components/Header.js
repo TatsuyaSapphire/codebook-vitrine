@@ -85,7 +85,6 @@ export const Header = () => {
     useEffect(() => {
         if (!user) return;
         const unsubscribe = onSnapshot(collection(db, `users/${user.uid}/cart`), (snapshot) => {
-            console.log("test");
             setCartItemCount(snapshot.size); // Mettre à jour avec le nombre d'articles dans le panier
         });
 

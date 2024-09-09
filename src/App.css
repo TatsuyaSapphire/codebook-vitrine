@@ -73,14 +73,11 @@ main.dark figure, main.dark .card-body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  width: 85%;
   border: 1px solid rgba(92, 92, 92, 0.75) !important;
 }
 
-.card-body {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1; /* Pour que le contenu du corps s'étende */
+#featured-home-card .card, #search-result-card .card {
+  width: 85% !important;
 }
 
 .card-title {
@@ -232,6 +229,17 @@ footer.dark i:hover {
   color: white;
 }
 
+
+@media only screen and (max-width: 1301px) {
+  
+  #search-result-card  {
+    flex-wrap: wrap !important;
+  }
+
+  #search-result-card .card {
+    width: 100% !important;
+  }
+}
 
 @media only screen and (max-width: 1199px) {
   
