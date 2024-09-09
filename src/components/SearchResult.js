@@ -51,7 +51,7 @@ export const SearchResults = () => {
   };
 
   return (
-    <main className={`pt-3 pb-5 ps-5 ${theme === 'light' ? 'light' : 'dark'}`}>
+    <main className={`pt-3 pb-5 ps-5 container-search ${theme === 'light' ? 'light' : 'dark'}`}>
       <h1 className='mt-5'>
         {query.trim() !== '' ? `Résultats de la recherche pour "${query}"` : 'Tous les produits'}
       </h1>
