@@ -21,18 +21,6 @@ const firebaseConfig = {
 
 };
 
-
-// BACKUP
-// const firebaseConfig = {
-// apiKey: "AIzaSyAYPObEW9BAXjdfA-6XwI5IgnRJxEGWoDc",
-// authDomain: "backup-final.firebaseapp.com",
-// projectId: "backup-final",
-// storageBucket: "backup-final.appspot.com",
-// messagingSenderId: "1003001454849",
-// appId: "1:1003001454849:web:3a446b0c5cb5e75b40fb00",
-// };
-
-
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
