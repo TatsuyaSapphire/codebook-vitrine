@@ -82,8 +82,8 @@ export const ProductDetail = () => {
 
     return (
         <main className={`py-5 ${theme === 'light' ? 'light' : 'dark'}`}>
-            <h1>{product.name}</h1>
-            <p className="fw-bold mt-3">{product.overview}</p>
+            <h1 className="mb-3">{product.name}</h1>
+            <p className="fw-bold mt-5">{product.overview}</p>
             <div className="container">
                 <div className="row my-5">
                     <div className="col">
@@ -117,7 +117,7 @@ export const ProductDetail = () => {
                                 </button>
                             </div>
                         )}
-                        <p className="fw-bold">{product.long_description}</p>
+                        <p className="fw-bold mt-3">{product.long_description}</p>
                     </div>
                 </div>
             </div>

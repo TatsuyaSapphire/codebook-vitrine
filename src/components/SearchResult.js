@@ -57,7 +57,7 @@ export const SearchResults = () => {
       </h1>
       {results.length > 0 ? (
         <section className="container d-flex flex-column w-75 mx-auto mb-4">
-          <div className='cardContainer'>
+          <div className='cardContainer' id="search-result-card">
             <div className='row'>
               {results.map((product) => (
                 <div className='col-lg-4 col-md-6 mt-5' key={product.id}>

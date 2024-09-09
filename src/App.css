@@ -73,14 +73,11 @@ main.dark figure, main.dark .card-body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  width: 85%;
   border: 1px solid rgba(92, 92, 92, 0.75) !important;
 }
 
-.card-body {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1; /* Pour que le contenu du corps s'étende */
+#featured-home-card .card, #search-result-card .card {
+  width: 85% !important;
 }
 
 .card-title {
@@ -177,7 +174,6 @@ main.dark .burger-btn {
 }
 
 .filter {
-  min-width: 45vw;
   width: 14vw;
   position: fixed;
   top: 0;
@@ -237,6 +233,22 @@ footer.dark i:hover {
 }
 
 
+@media only screen and (max-width: 1301px) {
+  
+  #search-result-card  {
+    flex-wrap: wrap !important;
+  }
+
+  #search-result-card .card {
+    width: 100% !important;
+  }
+
+  .filter {
+    min-width: 20vw;
+  }
+
+}
+
 @media only screen and (max-width: 1199px) {
   
   #intro-home {
@@ -266,6 +278,10 @@ footer.dark i:hover {
     margin-top: 0.5em !important;
   }
 
+  .filter {
+    min-width: 25vw;
+  }
+
 }
 
 @media only screen and (max-width: 775px) {
@@ -288,6 +304,10 @@ footer.dark i:hover {
     display: flex;
     flex-direction: row !important;
     justify-content: center !important;
+  }
+
+  .filter {
+    min-width: 35vw;
   }
 
 }
@@ -329,6 +349,10 @@ footer.dark i:hover {
   #accordion-section {
     width: 100% !important;
     margin-top: 0px !important;
+  }
+
+  .filter {
+    min-width: 45vw;
   }
 
 }
