@@ -99,7 +99,7 @@ export const ProductHome = () => {
       <div className='container cardContainer mt-5 d-flex justify-content-center ps-5' id="featured-home">
         {products.map((product) => (
           <div className='col-lg-4 col-md-6 rounded' key={product.id} id="featured-home-card">
-            <div className='card'>
+            <div className='card zoom-card'>
               <Link to={`/product/${product.id}`}>
                 <img src={product.poster} className='card-img-top cardImg' alt='product-img'></img>
               </Link>
