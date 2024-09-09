@@ -114,7 +114,7 @@ export const ProductHome = () => {
                   {user && ( // Afficher le bouton si l'utilisateur est connecté
                     <div>
                       <button
-                        className={`btn btn-sm rounded-lg ${
+                        className={`btn btn-sm rounded-lg p-3 ${
                           cartItems.includes(product.id) ? 'btn-danger' : 'btn-primary'
                         }`}
                         onClick={() => handleCartAction(product.id)}
