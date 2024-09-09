@@ -170,7 +170,6 @@ main.dark .burger-btn {
 }
 
 .filter {
-  min-width: 45vw;
   width: 14vw;
   position: fixed;
   top: 0;
@@ -239,6 +238,11 @@ footer.dark i:hover {
   #search-result-card .card {
     width: 100% !important;
   }
+
+  .filter {
+    min-width: 20vw;
+  }
+
 }
 
 @media only screen and (max-width: 1199px) {
@@ -270,6 +274,10 @@ footer.dark i:hover {
     margin-top: 0.5em !important;
   }
 
+  .filter {
+    min-width: 25vw;
+  }
+
 }
 
 @media only screen and (max-width: 775px) {
@@ -292,6 +300,10 @@ footer.dark i:hover {
     display: flex;
     flex-direction: row !important;
     justify-content: center !important;
+  }
+
+  .filter {
+    min-width: 35vw;
   }
 
 }
@@ -333,6 +345,10 @@ footer.dark i:hover {
   #accordion-section {
     width: 100% !important;
     margin-top: 0px !important;
+  }
+
+  .filter {
+    min-width: 45vw;
   }
 
 }

@@ -17,6 +17,8 @@ export const AllProducts = () => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1); // Page actuelle
+  const [productsPerPage] = useState(9); // Nombre de produits par page
 
   // Fonction pour récupérer les produits du panier
   const fetchCartItems = async () => {
@@ -133,6 +135,14 @@ export const AllProducts = () => {
   // Appliquer les filtres avant le rendu
   const filteredProducts = applyFilters();
 
+  // Pagination: Calcul des indices de début et de fin des produits de la page courante
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  // Changement de page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   if (loading) {
     return <p>Chargement des produits...</p>;
   }
@@ -140,14 +150,14 @@ export const AllProducts = () => {
   return (
     <main className={`d-flex flex-column pt-5 pb-5 align-items-center ${theme === 'light' ? 'light' : 'dark'}`}>
       <section className="container d-flex flex-column w-75 mx-auto" id="products-section">
-        <div className="d-flex justify-content-between align-items-center">
+        <div className="d-flex justify-content-between align-items-center" id="products-title">
           <h4 className='link-underline-primarys fw-bold'>All eBooks({filteredProducts.length})</h4>
           <button className={`burger-btn rounded ${theme === 'light' ? 'light' : 'dark'}`} onClick={toggleFilterDisplay}>
             <i className="bi bi-three-dots-vertical"></i>
           </button>
         </div>
         <div className='card-Container w-100 mt-5'>
-            {filteredProducts.map((product) => (
+            {currentProducts.map((product) => (
 
                 <div className='card' key={product.id}>
                   <Link to={`/product/${product.id}`}>
@@ -178,6 +188,19 @@ export const AllProducts = () => {
             ))}
 
         </div>
+
+        {/* Pagination */}
+        <nav>
+          <ul className='pagination justify-content-center mt-4'>
+            {Array.from({ length: Math.ceil(filteredProducts.length / productsPerPage) }, (_, index) => (
+              <li key={index + 1} className={`me-3 page-item ${currentPage === index + 1 ? 'active' : ''}`}>
+                <button onClick={() => paginate(index + 1)} className='page-link'>
+                  {index + 1}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </section>
       <section className={`filter px-2 d-flex flex-column ${theme === 'light' ? 'light' : 'dark'} ${filterDisplay ? 'filterVisible' : 'filterInvisible'}`}>
             <div className="d-flex justify-content-between align-items-center  pt-3">
