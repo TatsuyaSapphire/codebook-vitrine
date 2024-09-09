@@ -114,11 +114,11 @@ header .dropdown-toggle {
   
 }
 
-.badge {
+.badge-cart {
   position: absolute;
-  top: 25px;
-  right: 40px;
-  padding: 5px 7px;
+  top: 26px;
+  right: 42px;
+  padding: 3px 6px;
   border-radius: 50%;
   background-color: red;
   color: white;

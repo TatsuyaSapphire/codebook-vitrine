@@ -68,7 +68,7 @@ export const Cart = () => {
                   </div>
                 </div>
                 <div>
-                  <span className="fs-5">{item.price} €</span>
+                  <p className="fs-5">{item.price} €</p>
                 </div>
               </div>
             ))}
