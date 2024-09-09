@@ -7,7 +7,7 @@ import { update } from './../store/themeSlice';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { auth } from './../firebase/server.js';
 import { SearchBar } from './SearchBar';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo.gif';
 import '../index.css';
 import './Header.css';
 import { collection, onSnapshot } from 'firebase/firestore';
@@ -95,16 +95,16 @@ export const Header = () => {
 
 
     const logoStyle = {
-        width: '3rem',
-        height: '3rem',
+        width: '5rem',
+        height: '5rem',
     };
 
     return (
         <header className={`my-0 ${theme === 'light' ? 'light' : 'dark'}`}>
             <nav className="container navbar navbar-expand-lg navbar-dark d-flex justify-content-between w-75 px-0">
-                <NavLink to="/" className="navbar-brand d-flex align-items-center">
+                <NavLink to="/" className="navbar-brand d-flex align-items-center title">
                     <img src={logo} style={logoStyle} alt="logo"></img>
-                    CodeBook
+                    <span className='logo'>CodeBook</span>
                 </NavLink>
                 <div className="d-flex">
                     <button className={`${theme === 'light' ? 'light' : 'dark'}`} onClick={toggleTheme}>

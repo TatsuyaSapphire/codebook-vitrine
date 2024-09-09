@@ -90,7 +90,9 @@ export const ProductHome = () => {
   };
 
   if (loading) {
-    return <p>Chargement des produits...</p>;
+    return <div class="spinner-border text-secondary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>;
   }
 
   return (

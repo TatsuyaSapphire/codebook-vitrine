@@ -20,7 +20,7 @@ export const Home =() =>{
     <main className={`py-5 ${theme === 'light' ? 'light' : 'dark'}`}>
       <section className="container d-flex flex-row justify-content-center mb-5" id="intro-home">
         <div className="text-start my-5" id="title-home">
-          <h1 className="display-5 font-bold mb-4">The Ultimate eBook Store</h1>
+          <h1 className="display-5 font-bold mb-4 textAnim">The Ultimate eBook Store</h1>
           <p className="h4 mb-4 pe-3">CodeBook is the world's most popular and authoritative source for computer science ebooks. Find ratings and access to the newest books digitally.</p>
           <button type="button" onClick={handleNavigateToProducts} className="text-white btn btn-primary py-2 px-4 mt-2">Explore eBooks</button>
         </div>
