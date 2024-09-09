@@ -18,8 +18,8 @@ export const Home =() =>{
 
   return(
     <main className={`py-5 ${theme === 'light' ? 'light' : 'dark'}`}>
-      <section className="container d-flex flex-row justify-content-center mb-5">
-        <div className="text-start my-5">
+      <section className="container d-flex flex-row justify-content-center mb-5" id="intro-home">
+        <div className="text-start my-5" id="title-home">
           <h1 className="display-5 font-bold mb-4">The Ultimate eBook Store</h1>
           <p className="h4 mb-4 pe-3">CodeBook is the world's most popular and authoritative source for computer science ebooks. Find ratings and access to the newest books digitally.</p>
           <button type="button" onClick={handleNavigateToProducts} className="text-white btn btn-primary py-2 px-4 mt-2">Explore eBooks</button>
@@ -30,9 +30,9 @@ export const Home =() =>{
         </div>
       </section>
       <ProductHome/>
-      <section className='container my-5 w-75 mx-auto px-0'>
+      <section className='container my-5 px-0' id="student-section">
           <h1 className='text-decoration-underline fs-4 fw-bold'>Student About CodeBook</h1>
-          <div className='mt-3 d-flex flex-wrap align-content-start'>
+          <div className='mt-3 d-flex flex-wrap align-content-start' id="students-home">
             <figure className="py-5 w-50 m-0">
               <blockquote className="px-5">
                 <h4 className="fw-bold">Very easy this was to integrate</h4>
@@ -87,7 +87,7 @@ export const Home =() =>{
             </figure>
           </div>
       </section>
-      <section className="container my-10 rounded shadow-sm w-75 mx-auto accordion-container">
+      <section className="container my-10 rounded shadow-sm mx-auto accordion-container" id="accordion-section">
         <div className='py-5 px-4'>
           <h3><span className="border-bottom pb-3">Question in mind ?</span></h3>
           <div className="accordion mt-5 accordion-flush" id="accordionPanelsStayOpenExample">

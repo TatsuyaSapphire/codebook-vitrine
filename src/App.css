@@ -34,26 +34,6 @@
   color: #61dafb;
 }
 
-
-
-header .themeSelector span{
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
-  display: inline-block;
-  margin-left: 5px;
-  cursor: pointer;
-  border: 1px solid #dfdfdf;
-  
-}
-
-header .themeSelector .activeTheme{
-  height: 30px;
-  width: 30px;
-}
-
-
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -123,6 +103,10 @@ main.dark figure, main.dark .card-body {
 
 .main-order-history {
   min-height: 85vh;
+}
+
+#students-section, #accordion-section {
+  width: 75% !important;
 }
 
 figure, .accordion-container {
@@ -245,4 +229,101 @@ footer.dark a:hover {
 
 footer.dark i:hover {
   color: white;
+}
+
+
+@media only screen and (max-width: 1199px) {
+  
+  #intro-home {
+    flex-direction: column !important;
+    padding: 0px 1.5em;
+  }
+
+  #intro-home img{
+    width: 100%;
+  }
+
+}
+
+@media only screen and (max-width: 990px) {
+  
+  #featured-home {
+    flex-wrap: wrap !important;
+    margin-top: 0.5em !important;
+    padding: 0px 1.5em !important;
+  }
+
+  #featured-home-card {
+    margin-top: 1em !important;
+  }
+
+  #title-home {
+    margin-top: 0.5em !important;
+  }
+
+}
+
+@media only screen and (max-width: 775px) {
+  
+  #students-home {
+    flex-direction: column !important;
+  }
+
+  #students-home figure {
+    width: 100% !important;
+  }
+
+  #featured-home {
+    align-items: center !important;
+    width: 100%;
+  }
+
+  #featured-home-card {
+    width: 100% !important;
+    display: flex;
+    flex-direction: row !important;
+    justify-content: center !important;
+  }
+
+}
+
+@media only screen and (max-width: 600px) {
+
+  #intro-home {
+    width: 100% !important;
+    padding: 0px !important;
+  }
+  
+  #title-home {
+    padding: 0px 1.5em !important;
+  }
+
+  #featured-home {
+    margin: 0 auto !important;
+    padding: 0 !important;
+  }
+
+  #featured-home .card{
+    width: 100% !important;
+  }
+
+  #featured-home .card a img{
+    height: auto !important;
+  }
+
+  #students-section {
+    width: 100% !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
+
+  #students-home {
+    width: 100% !important;
+  }
+
+  #accordion-section {
+    width: 100% !important;
+    margin-top: 0px !important;
+  }
+
 }

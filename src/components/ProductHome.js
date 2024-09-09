@@ -94,11 +94,11 @@ export const ProductHome = () => {
   }
 
   return (
-    <main className={`${theme === 'light' ? 'light' : 'dark'}`}>
+    <section className={`${theme === 'light' ? 'light' : 'dark'}`}>
       <h4 className='link-underline-primarys'>Featured eBooks</h4>
-      <div className='container cardContainer mt-5 d-flex justify-content-center ps-5'>
+      <div className='container cardContainer mt-5 d-flex justify-content-center ps-5' id="featured-home">
         {products.map((product) => (
-          <div className='col-4 rounded' key={product.id}>
+          <div className='col-lg-4 col-md-6 rounded' key={product.id} id="featured-home-card">
             <div className='card'>
               <Link to={`/product/${product.id}`}>
                 <img src={product.poster} className='card-img-top cardImg' alt='product-img'></img>
@@ -129,6 +129,6 @@ export const ProductHome = () => {
           </div>
         ))}
       </div>
-    </main>
+    </section>
   );
 };

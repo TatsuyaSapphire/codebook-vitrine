@@ -113,9 +113,6 @@ export const Header = () => {
                     <button className={`${theme === 'light' ? 'light' : 'dark'}`} onClick={toggleSearchBar}>
                         <i className="fa-solid fa-magnifying-glass"></i>
                     </button>
-                    <button className={`navbar-toggler ${theme === 'light' ? 'light' : 'dark'}`} type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
                     <button className={`${theme === 'light' ? 'light' : 'dark'}`} onClick={() => navigate('/cart')}>
                         <i className="fa-solid fa-cart-shopping"></i>
                         <span className="badge-cart bg-danger">{cartItemCount}</span>
@@ -124,7 +121,7 @@ export const Header = () => {
                         <button className={`dropdown-toggle ${theme === 'light' ? 'light text-black' : 'dark text-white'}`} type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i className="fa-solid fa-user"></i>
                         </button>
-                        <ul className="dropdown-menu">
+                        <ul className="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
                             <li className="dropdown-item" type="button" onClick={handleRedirect}>
                                 All eBooks
                             </li>
