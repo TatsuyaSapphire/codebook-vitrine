@@ -78,7 +78,7 @@ export const Header = () => {
 
         // Nettoyage de l'abonnement lors du démontage du composant
         return () => unsubscribe();
-    }, []);
+    }, [user]);
 
 
     const logoStyle = {
@@ -105,7 +105,7 @@ export const Header = () => {
                     </button>
                     <button className={`${theme === 'light' ? 'light' : 'dark'}`} onClick={() => navigate('/cart')}>
                         <i className="fa-solid fa-cart-shopping"></i>
-                        <span className="badge bg-danger">{cartItemCount}</span>
+                        <span className="badge-cart bg-danger">{cartItemCount}</span>
                     </button>
                     <div className="dropdown-center col">
                         <button className={`dropdown-toggle ${theme === 'light' ? 'light text-black' : 'dark text-white'}`} type="button" data-bs-toggle="dropdown" aria-expanded="false">
