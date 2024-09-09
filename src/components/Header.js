@@ -100,9 +100,6 @@ export const Header = () => {
                     <button className={`${theme === 'light' ? 'light' : 'dark'}`} onClick={toggleSearchBar}>
                         <i className="fa-solid fa-magnifying-glass"></i>
                     </button>
-                    <button className={`navbar-toggler ${theme === 'light' ? 'light' : 'dark'}`} type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
                     <button className={`${theme === 'light' ? 'light' : 'dark'}`} onClick={() => navigate('/cart')}>
                         <i className="fa-solid fa-cart-shopping"></i>
                         <span className="badge-cart bg-danger">{cartItemCount}</span>

@@ -189,6 +189,7 @@ main.dark .burger-btn {
 }
 
 .filter {
+  min-width: 45vw;
   width: 14vw;
   position: fixed;
   top: 0;
