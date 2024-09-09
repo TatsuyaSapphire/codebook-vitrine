@@ -114,6 +114,17 @@ header .dropdown-toggle {
   
 }
 
+.badge {
+  position: absolute;
+  top: 25px;
+  right: 40px;
+  padding: 5px 7px;
+  border-radius: 50%;
+  background-color: red;
+  color: white;
+  font-size: 10px;
+}
+
 @media (max-width: 768px) {
   .navbar-brand {
     font-size: 1.3rem;

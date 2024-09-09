@@ -10,6 +10,8 @@ import { SearchBar } from './SearchBar';
 import logo from '../assets/logo.png';
 import '../index.css';
 import './Header.css';
+import { collection, onSnapshot } from 'firebase/firestore';
+import { db } from './../firebase/server'; // Importez votre instance de Firebase Firestore
 
 export const Header = () => {
     const dispatch = useDispatch();
@@ -17,6 +19,7 @@ export const Header = () => {
     const [user, setUser] = useState(null);
     const { showSearchBar, setShowSearchBar } = useSearch(); // Correction ici
     const theme = useSelector((state) => state.themeState.theme);
+    const [cartItemCount, setCartItemCount] = useState(0);
 
     const handleRedirect = () => {
         navigate('/products'); // Redirige vers la liste des produits
@@ -65,6 +68,19 @@ export const Header = () => {
         return () => unsubscribe();
     }, []);
 
+    // Écouter les changements en temps réel de la collection 'cart'
+    useEffect(() => {
+        if (!user) return;
+        const unsubscribe = onSnapshot(collection(db, `users/${user.uid}/cart`), (snapshot) => {
+            console.log("test");
+            setCartItemCount(snapshot.size); // Mettre à jour avec le nombre d'articles dans le panier
+        });
+
+        // Nettoyage de l'abonnement lors du démontage du composant
+        return () => unsubscribe();
+    }, []);
+
+
     const logoStyle = {
         width: '3rem',
         height: '3rem',
@@ -89,27 +105,30 @@ export const Header = () => {
                     </button>
                     <button className={`${theme === 'light' ? 'light' : 'dark'}`} onClick={() => navigate('/cart')}>
                         <i className="fa-solid fa-cart-shopping"></i>
+                        <span className="badge bg-danger">{cartItemCount}</span>
                     </button>
                     <div className="dropdown-center col">
                         <button className={`dropdown-toggle ${theme === 'light' ? 'light text-black' : 'dark text-white'}`} type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i className="fa-solid fa-user"></i>
                         </button>
                         <ul className="dropdown-menu">
+                            <li className="dropdown-item" type="button" onClick={handleRedirect}>
+                                All eBooks
+                            </li>
                             {user ? (
-                                <li className="dropdown-item" type="button" onClick={logout}>
-                                    Logout
-                                </li>
+                                <>
+                                    <li className="dropdown-item" type="button" onClick={logout}>
+                                        Logout
+                                    </li>
+                                    <li className="dropdown-item" type="button" onClick={handleRedirectToOrderHistory}>
+                                        Order History
+                                    </li>
+                                </>
                             ) : (
                                 <li className="dropdown-item" type="button" onClick={login}>
                                     Login
                                 </li>
                             )}
-                            <li className="dropdown-item" type="button" onClick={handleRedirect}>
-                                All eBooks
-                            </li>
-                            <li className="dropdown-item" type="button" onClick={handleRedirectToOrderHistory}>
-                                Order History
-                            </li>
                         </ul>
                     </div>
                 </div>
