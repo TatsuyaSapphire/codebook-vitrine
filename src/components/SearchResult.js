@@ -60,7 +60,7 @@ export const SearchResults = () => {
           <div className='cardContainer'>
             <div className='row'>
               {results.map((product) => (
-                <div className='col-4 mt-5' key={product.id}>
+                <div className='col-lg-4 col-md-6 mt-5' key={product.id}>
                   <div className='card'>
                     <Link to={`/product/${product.id}`}>
                       <img src={product.poster} className='card-img-top cardImg' alt='product-img' />

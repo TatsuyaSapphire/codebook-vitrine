@@ -5,18 +5,28 @@ import { db, auth } from '../firebase/server'; // Assurez-vous que le chemin est
 export const searchProducts = async (searchTerm) => {
   try {
     const productsCollection = collection(db, 'products');
-    const q = query(productsCollection, where('name', '>=', searchTerm), where('name', '<=', searchTerm + '\uf8ff'));
-    const snapshot = await getDocs(q);
-    const products = snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }));
+
+    // Récupérer tous les produits (ou un sous-ensemble si possible)
+    const snapshot = await getDocs(productsCollection);
+
+    // Créer une expression régulière pour la recherche, sans convertir en minuscule
+    const searchTermRegex = new RegExp(searchTerm, 'i'); // 'i' pour insensible à la casse
+
+    // Filtrer les produits dont le nom contient le terme recherché
+    const products = snapshot.docs
+      .map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }))
+      .filter(product => searchTermRegex.test(product.name));
+
     return products;
   } catch (error) {
     console.error('Erreur de recherche des produits:', error);
     return [];
   }
 };
+
 // Fonction pour récupérer tous les produits
 export const getAllProducts = async () => {
   try {

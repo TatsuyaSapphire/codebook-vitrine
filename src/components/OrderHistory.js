@@ -65,11 +65,11 @@ export const OrderHistory = () => {
                     <p><strong>Total :</strong> {order.total} €</p>
                 </div>
                 {order.items.map((item, i) => (
-                    <div className='container d-flex' key={i}>
-                        <div className='row align-items-center'>
+                    <div className='container' key={i}>
+                        <div className='row border border-dark-subtle rounded mx-2 mb-2  align-items-center'>
                             <div className='col'>
                                 <Link to={`/product/${item.productId}`}>
-                                    <img src={item.poster} style={imgStyle} className='m-3' alt='product-img'/>
+                                    <img src={item.poster} style={imgStyle} className='m-3 rounded' alt='product-img'/>
                                 </Link>
                             </div>
                             <div className='col fw-bold'>
